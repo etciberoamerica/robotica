@@ -12,5 +12,25 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('register');
 });
+
+
+Route::post('register',['as'=>'register','uses'=>function(){
+    add('hola');
+}]);
+
+Route::get('institutions',['as'=>'institutions','uses'=>'InstitutionController@index']);
+Route::post('institutions',['as'=>'institutions','uses'=>'InstitutionController@update']);
+
+
+Route::get('editIns',['as'=>'editIns','uses'=>'InstitutionController@edit']);
+
+
+/*
+Route::post('institutions',['as'=>'institutions','uses'=>function(Request $request){
+    dd($request->all());
+}]);
+*/
+
+
