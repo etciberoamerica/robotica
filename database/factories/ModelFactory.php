@@ -26,7 +26,6 @@ $factory->define(App\Institution::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\en_US\Address($faker));
     return [
         'name'      => 'Instituto '.$faker->country,
-        'gender'    => $faker->randomElement(['MA','FE','MI']),
         'user_id'   => 1,
         'active'    => $faker->randomElement([0,1])
     ];

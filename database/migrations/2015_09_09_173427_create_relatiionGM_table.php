@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInstitutionsTable extends Migration
+class CreateRelatiionGMTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateInstitutionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('institution', function(Blueprint $table){
+        Schema::create('relation_gen_inst',function(Blueprint $table){
             $table->increments('id');
-            $table->string('name');
-            $table->string('user_id');
+            $table->integer('institution_id');
+            $table->enum('gender',['MA','FE','MI']);
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateInstitutionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('institution');
+        Schema::drop('relation_gen_inst');
     }
 }

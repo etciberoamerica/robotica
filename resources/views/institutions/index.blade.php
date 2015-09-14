@@ -51,15 +51,15 @@
                         </tbody>
                     </table>
 
-
-
-
-
                     <div class="clearfix"></div>
                     <ul class="pagination pull-right">
                         {!! $insti->render() !!}
                     </ul>
 
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                    </label>
                 </div>
 
             </div>
@@ -82,7 +82,27 @@
                           {!! Form::text('nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
+
                         * {!! Form::label('genero','Género') !!}:
+                        <div class="checkbox">
+                            <label for="">
+                                {!! Form::checkbox('Genero[]', 'MA',false,['id' => 'inlineCheckbox1']) !!}
+                                {!! Form::label('masculino','Masculino') !!}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="">
+                                {!! Form::checkbox('Genero[]', 'FE',false,['id' => 'inlineCheckbox2']) !!}
+                                {!! Form::label('femenino','Femenino') !!}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="">
+                                {!! Form::checkbox('Genero[]', 'MI',false,['id' => 'inlineCheckbox3']) !!}
+                                {!! Form::label('mixto','Mixto') !!}
+                            </label>
+                        </div>
+
                         {!!  Form::select('Género', ['' => 'Seleciona el genero ','MA'=>'Masculino','FE'=>'Femenino','MI'=>'Mixto'], '' ,['id'=>'genero_id','class' => 'form-control']) !!}
 
                     </div>

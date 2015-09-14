@@ -26,6 +26,7 @@ Route::post('institutions',['as'=>'institutions','uses'=>'InstitutionController@
 
 Route::get('editIns',['as'=>'editIns','uses'=>'InstitutionController@edit']);
 
+Route::get('autocompleintitu',['as'=>'autocompleintitu','uses'=>'InstitutionController@autocomplete']);
 
 /*
 Route::post('institutions',['as'=>'institutions','uses'=>function(Request $request){

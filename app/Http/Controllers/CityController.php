@@ -7,12 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Tool;
 
-
-use App\Institution;
-
-class InstitutionController extends Controller
+use App\City;
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +18,7 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-        $url_actual = explode('?',$url_actual);
-        $insti=Institution::paginate(10);
-        $insti->setPath($url_actual[0]);
-        return view('institutions.index',compact('insti'));
+        //
     }
 
     /**
@@ -33,10 +26,9 @@ class InstitutionController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
-
+        //
     }
 
     /**
@@ -67,11 +59,9 @@ class InstitutionController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        if($request->ajax()){
-            return Institution::find($request->id);
-        }
+        //
     }
 
     /**
@@ -81,13 +71,9 @@ class InstitutionController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $data= Tool::removeSpace($request->all());
-        echo"<pre>";
-        print_r($data);
-        print_r($request->all());
-        echo"</pre>";
+        //
     }
 
     /**
@@ -99,17 +85,5 @@ class InstitutionController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /*
-     * Autor: Ricardo Lugo The Richi
-     * obtiene todos los colegios que esten activos
-     */
-
-    public function autocomplete(){
-        $data = Institution::where('active','1')->get();
-
-        return $data->toJson();
-
     }
 }

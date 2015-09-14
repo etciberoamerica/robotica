@@ -11,26 +11,61 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-list-alt">
-                                                        </span> Datos del coach</a>
+                               </span> Datos del equipo</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="form-group">
+                                {!! Form::label('institucion','Institución') !!}
+                                {!! Form::text('institución','',['class'=>'form-control','id'=>'institución_id']) !!}
+                                {!! Form::text('institution_id','',['id'=>'institution_id']) !!}
+                            </div>
+                            <div class="form-group">
                                 * {!! Form::label('name', 'Nombre:') !!}
-                                {!! Form::text('nombre','',array('class'=>'form-control','id'=>'name')) !!}
+                                {!! Form::text('nombre','',['class'=>'form-control','id'=>'name']) !!}
                                 {!! $errors->first('nombre','<p class="error-message">:message</p>') !!}
                             </div>
                             <div class="form-group">
                                 * {!! Form::label('ap_pat','Apellido Paterno')!!}
-                                {!! Form::text('Apellido Paterno','',array('class'=>'form-control','id'=>'ap_pat')) !!}
+                                {!! Form::text('Apellido Paterno','',['class'=>'form-control','id'=>'ap_pat']) !!}
                                 {!! $errors->first('Apellido Paterno','<p class="error-message">:message</p>') !!}
                             </div>
                             <div class="form-group">
                                 * {!! Form::label('ap_mat','Apellido Materno') !!}
-                                {!! Form::text('Apellido Materno','',array('class'=>'form-control','id'=>'ap_mat')) !!}
+                                {!! Form::text('Apellido Materno','',['class'=>'form-control','id'=>'ap_mat']) !!}
                                 {!! $errors->first('Apellido Materno','<p class="error-message">:message</p>') !!}
                             </div>
+                            <div class="form-group">
+                                *{!! Form::label('email','Email') !!}
+                                {!! Form::email('Email', '', ['class'=> 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                *{!! Form::label('email','Email Alterno') !!}
+                                {!! Form::email('Email Alterno', '', ['class'=> 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                *{!! Form::label('coach','Coach Auxiliar (nombre completo)') !!}
+                                {!! Form::text('Coach Auxiliar','',['class'=> 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                *{!! Form::label('coach','Coordinador (nombre completo)') !!}
+                                {!! Form::text('Coordinador','',['class'=> 'form-control']) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-list-alt">
+                                                        </span> Datos del coach</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+
                             <div class="form-group">
                                 * {!! Form::label('nacionalidad', 'Nacionalidad') !!}
 
@@ -95,14 +130,7 @@
                  
 
 
-                <div class="panel panel-default">
-                    <div class="form-group">
-                        {!! Form::label('per_ase',' ¿ A cuántas personas más deseas asegurar ?') !!}
 
-                        {!! Form::select('personas',array('0'=> '0','1'=> '1','2'=> '2','3'=> '3','4'=> '4','5'=> '5',),0,array('class' => 'form-control','id'=>'per_ase','width'=>'10')) !!}
-                    </div>
-
-                </div>
                 <div id="contenedor" class="contenedor"></div>
 
 
@@ -224,4 +252,35 @@
         </div>
         {!! Form::close() !!}
     </div>
+
+
+    <script>
+        $(document).ready(function(){
+            $("#institución_id").autocomplete({
+                serviceUrl: "autocompleintitu",
+                type: "GET",
+                autoSelectFirst: true,
+                noCache: true,
+                dataType: 'json',
+                transformResult: function (response) {
+
+                    return {
+                        suggestions: $.map(response, function (dataItem) {
+                            return {
+                                id: dataItem.id,
+                                value: dataItem.name,
+                                poblacion: dataItem.poblacion,
+                                municipio: dataItem.municipio,
+                                estado: dataItem.estado,
+                                cp: dataItem.cp
+                            };
+                        })
+                    };
+                },
+                onSelect: function (suggestion) {
+                    $('#institution_id').val(suggestion.id);
+                }
+            });
+        });
+    </script>
 @stop
