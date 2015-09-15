@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\State;
+
 class StateController extends Controller
 {
     /**
@@ -83,5 +85,13 @@ class StateController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getList(Request $request){
+        $data =[];
+        $data +=[0=>'-- Selecciona Estado --'];
+        $data +=State::where('country_id',$request->country_id)->lists('name','state_id')->toArray();
+    return $data;
+
     }
 }

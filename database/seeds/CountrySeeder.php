@@ -22,13 +22,13 @@ class CountrySeeder extends Seeder
         Country::create(['id' =>222,'name'=>'El Salvador' ]);
         Country::create(['id' =>320,'name'=>'Guatemala' ]);
         Country::create(['id' =>340,'name'=>'Honduras' ]);
-        Country::create(['id' =>484,'name'=>'México' ]);
+        Country::create(['id' =>484,'name'=>'MÃ©xico' ]);
         Country::create(['id' =>558,'name'=>'Nicaragua' ]);
-        Country::create(['id' =>591,'name'=>'Panamá' ]);
+        Country::create(['id' =>591,'name'=>'PanamÃ¡' ]);
         Country::create(['id' =>600,'name'=>'Paraguay' ]);
-        Country::create(['id' =>604,'name'=>'Perú' ]);
+        Country::create(['id' =>604,'name'=>'PerÃº' ]);
         Country::create(['id' =>620,'name'=>'Portugal' ]);
-        Country::create(['id' =>724,'name'=>'España' ]);
+        Country::create(['id' =>724,'name'=>'EspaÃ±a' ]);
         Country::create(['id' =>840,'name'=>'Estados Unidos' ]);
         Country::create(['id' =>858,'name'=>'Uruguay' ]);
         Country::create(['id' =>859,'name'=>'Republica Dominicana' ]);

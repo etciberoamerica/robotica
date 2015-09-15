@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call(InstitutionSeeder::class);
         $this->call(StateSeeder::class);
         $this->call(CountrySeeder::class);
+        $this->call(DegreeSeeder::class);
+        $this->call(RootSeeder::class);
+        $this->call(RelationrodeSeeder::class);
+        $this->call(ChallengeSeeder::class);
+
 
 
         Model::reguard();

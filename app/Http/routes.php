@@ -11,14 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('register');
-});
+Route::get('/',['as'=>'register','uses'=>'Auth\AuthController@getRegister']);
 
 
 Route::post('register',['as'=>'register','uses'=>function(){
     add('hola');
 }]);
+
+
+Route::get('country/select',['as'=>'country/select','uses'=>'StateController@getlist']);
+
+Route:get('city/select',['as'=>'city/select','uses'=>'CityController@getlist']);
+
+Route::get('challenge',['as'=>'challenge','uses'=>'RelationDeRoController@relation']);
 
 Route::get('institutions',['as'=>'institutions','uses'=>'InstitutionController@index']);
 Route::post('institutions',['as'=>'institutions','uses'=>'InstitutionController@update']);

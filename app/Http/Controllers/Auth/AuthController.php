@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+
+use App\Country;
+
 class AuthController extends Controller
 {
     /*
@@ -32,6 +35,20 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
+
+
+    public function getRegister()
+    {
+        $country= [];
+        $country += [''=>'-- Selecciona Pais --'];
+        $country += Country::lists('name', 'id')->toArray();
+
+
+        return view('register',compact('country'));
+    }
+
+
+
 
     /**
      * Get a validator for an incoming registration request.

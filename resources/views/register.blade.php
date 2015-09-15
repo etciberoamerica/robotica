@@ -17,10 +17,47 @@
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="form-group">
-                                {!! Form::label('institucion','Institución') !!}
+                                *{!! Form::label('institucion','Institución') !!}
                                 {!! Form::text('institución','',['class'=>'form-control','id'=>'institución_id']) !!}
-                                {!! Form::text('institution_id','',['id'=>'institution_id']) !!}
+                                {!! Form::hidden('institution_id','',['id'=>'institution_id']) !!}
                             </div>
+                            <div class="form-group">
+                                *{!! Form::label('nombre_team','Nombre del equipo') !!}
+                                {!! Form::text('Nombre del equipo','',['class'=>'form-control','id'=>'nombre_equipo_id']) !!}
+                            </div>
+                            <div class="form-group">
+                                *{!! Form::label('nombre_bot','Nombre del Robot') !!}
+                                {!! Form::text('Nombre del robot','',['class'=>'form-control','id'=>'nombre_robot_id']) !!}
+                            </div>
+                            <div class="form-group">
+                                *{!! Form::label('pais','País') !!}
+                                {!! Form::select('País',$country,'' ,['class'=>'form-control','id'=>'pais_id']) !!}
+                            </div>
+
+                            <div id='state_id' class="form-group none">
+                                *{!! Form::label('estado','Estado') !!}
+                                {!! Form::select('Estado',[''=>'-- Selecciona Estado --'],'',['class'=>'form-control','id'=>'estado_id']) !!}
+
+                            </div>
+                            <div id='city_id' class="form-group none">
+                                *{!! Form::label('estado','Ciudad') !!}
+                                {!! Form::select('Ciudad',[''=>'-- Selecciona ciudad --'],'',['class'=>'form-control','id'=>'ciudad_id']) !!}
+
+                            </div>
+
+
+                            <div class="form-group">
+                                * {!! Form::label('gen','Género:') !!}<br><br/>
+                                {!! Form::label('mas','Masculino:') !!}
+                                {!! Form::radio('Género','MAS') !!}
+                                {!! Form::label('fem','Femenino:') !!}
+                                {!! Form::radio('Género','FEM') !!}
+                                {!! Form::label('mix','Mixto:') !!}
+                                {!! Form::radio('Género','MIX') !!}
+                            </div>
+
+
+
                             <div class="form-group">
                                 * {!! Form::label('name', 'Nombre:') !!}
                                 {!! Form::text('nombre','',['class'=>'form-control','id'=>'name']) !!}
@@ -83,13 +120,7 @@
                                 {!! $errors->first('Mes','<p class="error-message">:message</p>') !!}
                                 {!! $errors->first('Día','<p class="error-message">:message</p>') !!}
                             </div>
-                            <div class="form-group">
-                                * {!! Form::label('gen','Género:') !!}<br><br/>
-                                {!! Form::label('mas','Masculino:') !!}
-                                {!! Form::radio('Género','Masculino') !!}
-                                {!! Form::label('fem','Femenino:') !!}
-                                {!! Form::radio('Género','Femenino') !!}
-                            </div>
+
                             <div class="form-group">
                                 * {!! Form::label('ocu','Ocupación') !!}
 
@@ -256,6 +287,63 @@
 
     <script>
         $(document).ready(function(){
+            $('#pais_id').change(function(){
+                if($(this).val()){
+                    $('#state_id').removeClass('none');
+                    $.ajax({
+                        url:'country/select',
+                        data:{
+                            country_id: $(this).val()
+                        },
+                        type: 'GET',
+                        success:function(data){
+                            $('#estado_id').empty();
+                            $.each(data, function(key, element){
+                                $('#estado_id').append("<option value='" + key + "'>" + element + "</option>");
+                            });
+
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+                }else{
+                    $('#estado_id').empty();
+                    $('#estado_id').append("<option value='0'>-- Seleciona estado --</option>");
+                    $('#state_id').addClass('none');
+                }
+
+            });
+
+
+            $('#estado_id').change(function(){
+                if($(this).val()){
+                    $('#city_id').removeClass('none');
+                    $.ajax({
+                        url:'city/select',
+                        data:{
+                            city_id: $(this).val()
+                        },
+                        type: 'GET',
+                        success:function(data){
+                            $('#ciudad_id').empty();
+                            $.each(data, function(key, element){
+                                $('#ciudad_id').append("<option value='" + key + "'>" + element + "</option>");
+                            });
+
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+                }else{
+                    $('#ciudad_id').empty();
+                    $('#ciudad_id').append("<option value='0'>-- Seleciona ciudad --</option>");
+                    $('#city_id').addClass('none');
+                }
+
+            });
+
+
+
             $("#institución_id").autocomplete({
                 serviceUrl: "autocompleintitu",
                 type: "GET",

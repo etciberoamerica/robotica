@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Country;
-class CountryController extends Controller
+class RobotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -85,6 +84,4 @@ class CountryController extends Controller
     {
         //
     }
-
-
 }
