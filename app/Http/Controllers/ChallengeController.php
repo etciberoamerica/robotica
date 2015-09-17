@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+Use App\Challenge;
 class ChallengeController extends Controller
 {
     /**
@@ -83,5 +83,13 @@ class ChallengeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public static function getlist(){
+        $data =[];
+        $data +=[0 => '-- Selecciona categoria --'];
+        $data += Challenge::lists('name','id')->toArray();
+        return $data;
+
     }
 }

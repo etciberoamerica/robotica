@@ -19,6 +19,9 @@ Route::post('register',['as'=>'register','uses'=>function(){
 }]);
 
 
+Route::get('holas',['as'=>'register','uses'=>'Auth\AuthController@getRegistertab']);
+
+
 Route::get('country/select',['as'=>'country/select','uses'=>'StateController@getlist']);
 
 Route:get('city/select',['as'=>'city/select','uses'=>'CityController@getlist']);

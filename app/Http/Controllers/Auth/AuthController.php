@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Challenge;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-
+use App\Http\Controllers\ChallengeController;
 use App\Country;
 
 class AuthController extends Controller
@@ -46,6 +47,21 @@ class AuthController extends Controller
 
         return view('register',compact('country'));
     }
+
+    public function getRegistertab()
+    {
+        $country= [];
+        $country += [''=>'-- Selecciona Pais --'];
+        $country += Country::lists('name', 'id')->toArray();
+
+        $challenge= ChallengeController::getlist();
+
+
+
+        return view('tab',compact('country','challenge'));
+    }
+
+
 
 
 
