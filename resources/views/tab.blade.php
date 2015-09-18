@@ -9,9 +9,9 @@
                         <ul class="nav nav-tabs" id="myTab">
                             <div class="liner"></div>
                             <li class="active">
-                                <a href="#home" data-toggle="tab" title="welcome">
+                                <a href="#home" data-toggle="tab" title="Datos equipo">
                       <span class="round-tabs one">
-                              <i class="glyphicon glyphicon-home"></i>
+                              <i class="glyphicon glyphicon-info-sign"></i>
                       </span>
                                 </a></li>
 
@@ -42,8 +42,8 @@
                         </ul></div>
 
                     <div class="tab-content">
+                        <!-- inicio del primer tab -->
                         <div class="tab-pane fade in active" id="home">
-
                             <h3 class="head text-center">Datos de equipo</h3>
                             <p class="narrow text-center">
                             <div class="panel-body">
@@ -88,14 +88,25 @@
                                 </div>
                                 <div class="form-group">
                                     * {!! Form::label('reto','Reto:') !!}
-                                    {!! Form::select('Reto',$challenge,'' ,['class'=>'form-control','id'=>'challenge_id']) !!}
+                                    {!! Form::select('Reto',$challenge,'' ,['class'=>'form-control','id'=>'reto_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    * {!! Form::label('grado','Grado:') !!}
+                                    {!! Form::select('Grado',[''=>'-- Seleciona grados --'],'',['class'=>'form-control','id'=>'grado_id']) !!}
                                 </div>
                             </div>
 
                             </p>
 
+                            <p class="text-center">
+                                <button id="comprobar_id_1" class="btn btn-success btn-outline-rounded green">
+                                    Comprobar datos <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+                                </button>
+                            </p>
+
 
                         </div>
+                        <!-- fin del primer taba -->
                         <div class="tab-pane fade" id="profile">
                             <h3 class="head text-center">Create a Bootsnipp<sup>™</sup> Profile</h3>
                             <p class="narrow text-center">
@@ -114,7 +125,7 @@
                             </p>
 
                             <p class="text-center">
-                                <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                <a href="·" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                             </p>
                         </div>
                         <div class="tab-pane fade" id="settings">
@@ -148,6 +159,64 @@
 
             $(document).ready(function(){
                 $('a[title]').tooltip();
+
+                $('#comprobar_id_1').click(function(){
+                    alert('veri');
+                    $.ajax({
+                        url:'check/one',
+                        data:{
+                            Institución: $('#institution_id').val(),
+                            Nombre_del_equipo:$('#nombre_equipo_id').val(),
+                            Nombre_del_robot :$('#nombre_robot_id').val(),
+                            País:$('#pais_id').val(),
+                            Estado:$('#pais_id').val(),
+                            Ciudad:$('#ciudad_id').val(),
+                            Género:$( "input[name$='Género']" ).val(),
+                            Reto:$('#reto_id').val(),
+                            Grado:$('#grado_id').val(),
+                        },
+                        type:'GET',
+                        success:function(data){
+                            //console.log(data);
+                            if(data.success){
+                                console.log('todo bien');
+
+                            }
+
+                        },
+                        error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+
+
+                });
+
+                $('#reto_id').change(function(){
+                    if($(this).val()){
+                        $.ajax({
+                            url     :'challenge/select',
+                            data    :{
+                                challenge_id: $(this).val()
+                            },
+                            type: 'GET',
+                            success: function(data){
+                                $('#grado_id').empty();
+                                $.each(data, function(key, element){
+                                    $('#grado_id').append("<option value='" + key + "'>" + element + "</option>");
+                                });
+
+                            },error:function(){
+                                alert('Upsss los sentimos ocurrio un problema');
+                            }
+
+                        });
+
+                    }else{
+
+                    }
+
+                });
 
                 $('#pais_id').change(function(){
                     if($(this).val()){

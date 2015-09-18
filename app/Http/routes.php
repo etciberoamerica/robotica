@@ -19,6 +19,7 @@ Route::post('register',['as'=>'register','uses'=>function(){
 }]);
 
 
+
 Route::get('holas',['as'=>'register','uses'=>'Auth\AuthController@getRegistertab']);
 
 
@@ -27,6 +28,11 @@ Route::get('country/select',['as'=>'country/select','uses'=>'StateController@get
 Route:get('city/select',['as'=>'city/select','uses'=>'CityController@getlist']);
 
 Route::get('challenge',['as'=>'challenge','uses'=>'RelationDeRoController@relation']);
+
+Route::get('challenge/select',['as'=>'challenge/select','uses'=>'RelationDeRoController@relationChalle']);
+
+
+Route::get('check/one',['as'=>'check/one','uses'=>'UserController@checkOne']);
 
 Route::get('institutions',['as'=>'institutions','uses'=>'InstitutionController@index']);
 Route::post('institutions',['as'=>'institutions','uses'=>'InstitutionController@update']);

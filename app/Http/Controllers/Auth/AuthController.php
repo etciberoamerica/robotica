@@ -12,6 +12,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Http\Controllers\ChallengeController;
 use App\Country;
 
+use Request;
+
 class AuthController extends Controller
 {
     /*
@@ -95,4 +97,6 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
 }

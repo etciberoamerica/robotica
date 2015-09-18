@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\RelationDeRo;
-class RelationDeRoController extends Controller
+use App\User;
+use Validator;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -86,27 +87,32 @@ class RelationDeRoController extends Controller
         //
     }
 
-    public function relation(){
+    public function checkOne(Request $request){
+        $validator = Validator::make($request->all(),[
+            "Institución" => "required",
+            "Nombre_del_equipo" => "required",
+            "Nombre_del_robot" => "required",
+            "País" => "required",
+            "Estado" => "required",
+            "Ciudad" => "required",
+            "Género" => "required",
+            "Reto" => "required",
+            "Grado" => "required"
+        ]);
+       // dd($validator->errors()->toArray());
+        $toArray=$validator->errors()->toArray();
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $toArray
 
-       $data= RelationDeRo::
-            join('degrees as d','d.id','=','relation_de_ro.degree_id')
-            ->join('challenges as c','c.id','=','relation_de_ro.challenge_id')
-            ->join('robots as r','r.id','=','relation_de_ro.robot_id')
-            ->select('relation_de_ro.*','d.name as grupo','c.name as reto','r.name as robot')
-           ->get();
-        return view('challenge.index',compact('data'));
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+        ]);
+
     }
 
-    public function relationChalle(Request $request){
-        $challenge = $request->challenge_id;
-
-        $data = RelationDeRo::
-        join('degrees','degrees.id','=','relation_de_ro.degree_id')
-        ->select('relation_de_ro.*','degrees.*')
-        ->where('relation_de_ro.challenge_id',$challenge)
-            ->lists('degrees.name','degrees.id');
-
-        return $data;
-
-    }
 }
