@@ -33,6 +33,9 @@ Route::get('challenge/select',['as'=>'challenge/select','uses'=>'RelationDeRoCon
 
 
 Route::get('check/one',['as'=>'check/one','uses'=>'UserController@checkOne']);
+Route::get('check/two',['as'=>'check/two','uses'=>'UserController@checkTwo']);
+Route::get('check/three',['as'=>'check/three','uses'=>'UserController@checkThree']);
+
 
 Route::get('institutions',['as'=>'institutions','uses'=>'InstitutionController@index']);
 Route::post('institutions',['as'=>'institutions','uses'=>'InstitutionController@update']);

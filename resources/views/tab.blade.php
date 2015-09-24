@@ -8,42 +8,38 @@
                     <div class="board-inner">
                         <ul class="nav nav-tabs" id="myTab">
                             <div class="liner"></div>
-                            <li class="active">
-                                <a href="#home" data-toggle="tab" title="Datos equipo">
-                      <span class="round-tabs one">
-                              <i class="glyphicon glyphicon-info-sign"></i>
-                      </span>
-                                </a></li>
-
-                            <li><a href="#profile" data-toggle="tab" title="profile">
-                     <span class="round-tabs two">
-                         <i class="glyphicon glyphicon-user"></i>
-                     </span>
+                            <li id='li_team' class="active">
+                                <a href="#team" data-toggle="tab" title="Datos equipo">
+                                  <span class="round-tabs one">
+                                          <i class="glyphicon glyphicon-info-sign"></i>
+                                  </span>
                                 </a>
                             </li>
-                            <li><a href="#messages" data-toggle="tab" title="bootsnipp goodies">
-                     <span class="round-tabs three">
-                          <i class="glyphicon glyphicon-gift"></i>
-                     </span> </a>
+                            <li id='li_coach'>
+                                <a href="#coach" data-toggle='tab' id='tab-coach' title="Datos coach">
+                                     <span class="round-tabs two">
+                                         <i class="glyphicon glyphicon-user"></i>
+                                     </span>
+                                </a>
+                            </li>
+                            <li id='li_integrantes'>
+                                <a href="#integrates" data-toggle='tab' id="tab-integrantes" title="Datos integrantes">
+                                     <span class="round-tabs three">
+                                          <i class="glyphicon glyphicon-gift"></i>
+                                     </span>
+                                </a>
                             </li>
 
-                            <li><a href="#settings" data-toggle="tab" title="blah blah">
-                         <span class="round-tabs four">
-                              <i class="glyphicon glyphicon-comment"></i>
-                         </span>
-                                </a></li>
 
-                            <li><a href="#doner" data-toggle="tab" title="completed">
-                         <span class="round-tabs five">
-                              <i class="glyphicon glyphicon-ok"></i>
-                         </span> </a>
-                            </li>
 
                         </ul></div>
 
+                    <div id="errores" class="alert alert-danger none">
+                    </div>
+
                     <div class="tab-content">
                         <!-- inicio del primer tab -->
-                        <div class="tab-pane fade in active" id="home">
+                        <div class="tab-pane fade in active" id="team">
                             <h3 class="head text-center">Datos de equipo</h3>
                             <p class="narrow text-center">
                             <div class="panel-body">
@@ -107,46 +103,147 @@
 
                         </div>
                         <!-- fin del primer taba -->
-                        <div class="tab-pane fade" id="profile">
-                            <h3 class="head text-center">Create a Bootsnipp<sup>™</sup> Profile</h3>
+                        <div class="tab-pane fade" id="coach">
+                            <h3 class="head text-center">Datos Coach</h3>
                             <p class="narrow text-center">
-                                Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                                <div class="form-group">
+                                    *{!! Form::label('nombre','Nombre') !!}
+                                    {!! Form::text('Nombre','',['class'=>'form-control','id'=>'nombre_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('apellido','Apellido paterno') !!}
+                                    {!! Form::text('Apellido Paterno','',['class'=>'form-control','id'=>'apellido_paterno_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('apellido','Apellido materno') !!}
+                                    {!! Form::text('Apellido Materno','',['class'=>'form-control','id'=>'apellido_materno_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('correo','Correo') !!}
+                                    {!! Form::email('Correo','',['class'=>'form-control','id'=>'correo_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('correo','Confirmación correo') !!}
+                                    {!! Form::email('Correo confirmación','',['class'=>'form-control','id'=>'correo_confirmacion_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('correo','Correo alterno') !!}
+                                    {!! Form::email('Correo alterno','',['class'=>'form-control','id'=>'correo_alterno_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('nombre','Nombre Coach Auxiliar:') !!}
+                                    {!! Form::text('Nombre Coach auxiliar ','',['class'=>'form-control','id'=>'nombre_aux_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('apellido','Apellido paterno Coach auxiliar') !!}
+                                    {!! Form::text('Apellido Paterno Coach auxiliar','',['class'=>'form-control','id'=>'apellido_paterno_aux_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('apellido','Apellido materno Coach auxiliar') !!}
+                                    {!! Form::text('Apellido Materno Coach auxiliar','',['class'=>'form-control','id'=>'apellido_materno_aux_id']) !!}
+                                </div>
+                                <div class="form-group">
+
+                                    *{!! Form::label('coordinado','El coordinador es igual que el Coach auxiliar?') !!}
+                                    Si{!! Form::radio('Cordinador', 'S',true) !!}
+                                    No{!! Form::radio('Cordinador', 'N',false) !!}
+
+                                </div>
+                                <div id="coordinador_info" class="none">
+                                    <div class="form-group">
+                                        *{!! Form::label('','Nombre coordinador:') !!}
+                                        {!! Form::text('Nombre coordinador','',['class'=>'form-control','id'=>'cor_name_id']) !!}
+                                    </div>
+
+                                    <div class="form-group">
+                                        *{!! Form::label('','Apellido paterno  coordinador:') !!}
+                                        {!! Form::text('Apellido paterno coordinador','',['class'=>'form-control','id'=>'cor_ap_pat_id']) !!}
+                                    </div>
+
+                                    <div class="form-group">
+                                        *{!! Form::label('','Apellido materno  coordinador:') !!}
+                                        {!! Form::text('Apellido materno coordinador','',['class'=>'form-control','id'=>'cor_ap_mat_id']) !!}
+                                    </div>
+
+                                </div>
+                            </p>
+                            <p class="text-center">
+                                <button id="comprobar_id_2" class="btn btn-success btn-outline-rounded green">
+                                    Comprobar datos <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+                                </button>
                             </p>
 
-                            <p class="text-center">
-                                <a href="" class="btn btn-success btn-outline-rounded green"> create your profile <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                            </p>
 
                         </div>
-                        <div class="tab-pane fade" id="messages">
-                            <h3 class="head text-center">Bootsnipp goodies</h3>
+                        <div class="tab-pane fade" id="integrates">
+                            <h3 class="head text-center">Integrantes</h3>
                             <p class="narrow text-center">
-                                Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                            </p>
+                            <div class="panel panel-default col-md-6 col-lg-6 ">
+                                <div class="form-group">
+                                    *{!! Form::label('','Nombre capitan:') !!}
+                                    {!! Form::text('Nombre capitan','',['class'=>'form-control','id'=>'cap_name_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido paterno capitan:') !!}
+                                    {!! Form::text('Apellido paterno capitan','',['class'=>'form-control','id'=>'cap_ap_pat_id']) !!}
+                                </div>
 
-                            <p class="text-center">
-                                <a href="·" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                            </p>
-                        </div>
-                        <div class="tab-pane fade" id="settings">
-                            <h3 class="head text-center">Drop comments!</h3>
-                            <p class="narrow text-center">
-                                Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                            </p>
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido materno  capitan:') !!}
+                                    {!! Form::text('Apellido materno capitan','',['class'=>'form-control','id'=>'cap_ap_mat_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('','Nombre 2 integrante:') !!}
+                                    {!! Form::text('Nombre 2 integrante','',['class'=>'form-control','id'=>'seg_name_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido paterno 2 integrante:') !!}
+                                    {!! Form::text('Apellido paterno 2 integrante','',['class'=>'form-control','id'=>'seg_ap_pat_id']) !!}
+                                </div>
 
-                            <p class="text-center">
-                                <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                            </p>
-                        </div>
-                        <div class="tab-pane fade" id="doner">
-                            <div class="text-center">
-                                <i class="img-intro icon-checkmark-circle"></i>
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido materno  2 integrante:') !!}
+                                    {!! Form::text('Apellido materno 2 integrante','',['class'=>'form-control','id'=>'seg_ap_mat_id']) !!}
+                                </div>
                             </div>
-                            <h3 class="head text-center">thanks for staying tuned! <span style="color:#f48260;">♥</span> Bootstrap</h3>
-                            <p class="narrow text-center">
-                                Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                            <div class="panel panel-default col-md-6 col-lg-6 ">
+                                <div class="form-group">
+                                    *{!! Form::label('','Nombre 3 integrante:') !!}
+                                    {!! Form::text('Nombre 3 integrante','',['class'=>'form-control','id'=>'tre_name_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido paterno 3 integrante:') !!}
+                                    {!! Form::text('Apellido paterno 3 integrante','',['class'=>'form-control','id'=>'tre_ap_pat_id']) !!}
+                                </div>
+
+                                <div class="form-group">
+                                    *{!! Form::label('','Apellido materno  3 integrante:') !!}
+                                    {!! Form::text('Apellido materno 3 integrante','',['class'=>'form-control','id'=>'tre_ap_mat_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('','Nombre 4 integrante:') !!}
+                                    {!! Form::text('Nombre 4 integrante','',['class'=>'form-control','id'=>'cua_name_id']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('','Apellido paterno 4 integrante:') !!}
+                                    {!! Form::text('Apellido paterno 4 integrante','',['class'=>'form-control','id'=>'cua_ap_pat_id']) !!}
+                                </div>
+
+                                <div class="form-group">
+                                    {!! Form::label('','Apellido materno 4 integrante:') !!}
+                                    {!! Form::text('Apellido materno 4 integrante','',['class'=>'form-control','id'=>'cua_ap_mat_id']) !!}
+                                </div>
+                            </div>
+
+                            </p>
+
+                            <p class="text-center">
+                                <button id="comprobar_id_3" class="btn btn-success btn-outline-rounded green">
+                                    Comprobar datos <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+                                </button>
                             </p>
                         </div>
+
                         <div class="clearfix"></div>
                     </div>
 
@@ -159,9 +256,132 @@
 
             $(document).ready(function(){
                 $('a[title]').tooltip();
+                $('input:radio[name="Cordinador"]').click(function(){
+                    if($(this).val() == 'S'){
+                        $('#coordinador_info').addClass('none');
+
+                    }else{
+                        $('#coordinador_info').removeClass('none');
+                    }
+
+
+                });
+
+                $('#comprobar_id_3').click(function(){
+                    $.ajax({
+                        url:'check/three',
+                        type:'GET',
+                        data:{
+                            Nombre_capitan:$('#cap_name_id').val(),
+                            Apellido_paterno_capitan:$('#cap_ap_pat_id').val(),
+                            Apellido_materno_capitan:$('#cap_ap_mat_id').val(),
+                            Nombre_2_integrante:$('#seg_name_id').val(),
+                            Apellido_paterno_2_integrante:$('#seg_ap_pat_id').val(),
+                            Apellido_materno_2_integrante:$('#seg_ap_mat_id').val(),
+                            Nombre_3_integrante:$('#tre_name_id').val(),
+                            Apellido_paterno_3_integrante:$('#tre_ap_pat_id').val(),
+                            Apellido_materno_3_integrante:$('#tre_ap_mat_id').val(),
+                            Nombre_4_integrante:$('#cua_name_id').val(),
+                            Apellido_paterno_4_integrante:$('#cua_ap_pat_id').val(),
+                            Apellido_materno_4_integrante:$('#cua_ap_mat_id').val(),
+
+                        },success:function(data){
+                            if(data.success ){
+                                $('#tab-integrantes').attr('data-toggle','tab');
+                                $('#errores').addClass('none');
+                                $("#coach").removeClass('active in');
+                                $("#team").removeClass('active in');
+                                $("#li_team").removeClass('active');
+                                $("#li_coach").removeClass('active');
+                                $("#integrates").addClass('active in');
+                                $("#li_integrantes").addClass('active');
+                            }else{
+                                $('#errores').removeClass('none');
+                                var html="";
+                                html +="<ul>";
+                                $.each(data.errors,function($i,$e){
+                                    console.log($e);
+                                    html +="<li>";
+                                    html +=$e;
+                                    html +="</li>";
+                                });
+                                html +="<ul>";
+                                $('#errores').empty();
+                                $('#errores').html(html);
+                            }
+
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+
+                    });
+
+                });
+                $('#comprobar_id_2').click(function(){
+
+                    var datos ={
+                        Nombre:$('#nombre_id').val(),
+                        Apellido_Paterno:$('#apellido_paterno_id').val(),
+                        Apellido_Materno:$('#apellido_materno_id').val(),
+                        Correo:$('#correo_id').val(),
+                        Correo_confirmación:$('#correo_confirmacion_id').val(),
+                        Correo_alterno:$('#correo_alterno_id').val(),
+                        Nombre_Coach_auxiliar:$('#nombre_aux_id').val(),
+                        Apellido_Paterno_Coach_auxiliar:$('#apellido_paterno_aux_id').val(),
+                        Apellido_Materno_Coach_auxiliar:$('#apellido_materno_aux_id').val()};
+
+
+                    if($('input:radio[name="Cordinador"]:checked').val() == 'S'){
+                        var json2= {
+                            Nombre_coordinador:$('#nombre_aux_id').val(),
+                            Apellido_paterno_coordinador:$('#apellido_paterno_aux_id').val(),
+                            Apellido_materno_coordinador:$('#apellido_materno_aux_id').val()};
+                    }else{
+                        var json2 ={
+                            Nombre_coordinador:$('#cor_name_id').val(),
+                            Apellido_paterno_coordinador:$('#cor_ap_pat_id').val(),
+                            Apellido_materno_coordinador:$('#cor_ap_mat_id').val()};
+                    }
+
+                    var datsoRe= $.extend(false,{},datos,json2);
+                   $.ajax({
+                        url:'check/two',
+                        type:'GET',
+                        data:datsoRe,
+                        success:function(data){
+                            if(data.success ){
+                                $('#tab-integrantes').attr('data-toggle','tab');
+                                $('#errores').addClass('none');
+                                $("#coach").removeClass('active in');
+                                $("#team").removeClass('active in');
+                                $("#li_team").removeClass('active');
+                                $("#li_coach").removeClass('active');
+                                $("#integrates").addClass('active in');
+                                $("#li_integrantes").addClass('active');
+                            }else{
+                                $('#errores').removeClass('none');
+                                var html="";
+                                html +="<ul>";
+                                $.each(data.errors,function($i,$e){
+                                    console.log($e);
+                                    html +="<li>";
+                                    html +=$e;
+                                    html +="</li>";
+                                });
+                                html +="<ul>";
+                                $('#errores').empty();
+                                $('#errores').html(html);
+                            }
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+
+
+                });
+
 
                 $('#comprobar_id_1').click(function(){
-                    alert('veri');
                     $.ajax({
                         url:'check/one',
                         data:{
@@ -177,12 +397,27 @@
                         },
                         type:'GET',
                         success:function(data){
-                            //console.log(data);
-                            if(data.success){
-                                console.log('todo bien');
-
+                            if(data.success ){
+                                $('#tab-coach').attr('data-toggle','tab');
+                                $('#errores').addClass('none');
+                                $("#coach").addClass('active in');
+                                $("#team").removeClass('active in');
+                                $("#li_team").removeClass('active');
+                                $("#li_coach").addClass('active');
+                            }else{
+                                $('#errores').removeClass('none');
+                                var html="";
+                                html +="<ul>";
+                                $.each(data.errors,function($i,$e){
+                                    console.log($e);
+                                    html +="<li>";
+                                    html +=$e;
+                                    html +="</li>";
+                                });
+                                html +="<ul>";
+                                $('#errores').empty();
+                                $('#errores').html(html);
                             }
-
                         },
                         error:function(){
                             alert('Upsss los sentimos ocurrio un problema');
