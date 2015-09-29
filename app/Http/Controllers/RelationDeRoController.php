@@ -87,7 +87,6 @@ class RelationDeRoController extends Controller
     }
 
     public function relation(){
-
        $data= RelationDeRo::
             join('degrees as d','d.id','=','relation_de_ro.degree_id')
             ->join('challenges as c','c.id','=','relation_de_ro.challenge_id')

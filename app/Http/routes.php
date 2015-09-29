@@ -20,7 +20,7 @@ Route::post('register',['as'=>'register','uses'=>function(){
 
 
 
-Route::get('holas',['as'=>'register','uses'=>'Auth\AuthController@getRegistertab']);
+Route::get('/',['as'=>'/','uses'=>'Auth\AuthController@getRegistertab']);
 
 
 Route::get('country/select',['as'=>'country/select','uses'=>'StateController@getlist']);
@@ -35,6 +35,9 @@ Route::get('challenge/select',['as'=>'challenge/select','uses'=>'RelationDeRoCon
 Route::get('check/one',['as'=>'check/one','uses'=>'UserController@checkOne']);
 Route::get('check/two',['as'=>'check/two','uses'=>'UserController@checkTwo']);
 Route::get('check/three',['as'=>'check/three','uses'=>'UserController@checkThree']);
+Route::get('check/name_team',['as'=>'check/name_team','uses'=>'UserController@checkNameTeam']);
+
+
 
 
 Route::get('institutions',['as'=>'institutions','uses'=>'InstitutionController@index']);

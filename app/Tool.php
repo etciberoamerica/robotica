@@ -37,4 +37,33 @@ class Tool extends Model
         return $cadena;
     }
 
+    public static function generateKey(array $data){
+        $texto="";
+        if($data['MI']){
+            $texto.='abcdefghijklmnopqrstuvwxyz';
+        }
+        if($data['MA']){
+            $texto.='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        if($data['NU']){
+            $texto.= '1234567890';
+        }
+        if($data['CA']){
+            $texto.='|@#~$%()=^*+[]{}-_';
+        }
+
+        if($data['LEN']>0){
+            $str ="";
+            $texto = str_split($texto,1);
+            for($i=1;$i<= $data['LEN'];$i++){
+                mt_srand((double)microtime() * 100000000);
+                $numero= mt_rand(1,count($texto));
+                $str .= $texto[$numero - 1];
+            }
+
+        }
+        return $str;
+
+    }
+
 }

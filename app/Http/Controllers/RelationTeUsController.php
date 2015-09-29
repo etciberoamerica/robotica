@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-Use App\Challenge;
-class ChallengeController extends Controller
+
+class RelationTeUsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -83,13 +83,5 @@ class ChallengeController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public static function getlist(){
-        $data =[];
-        $data +=['' => '-- Selecciona categoria --'];
-        $data += Challenge::lists('name','id')->toArray();
-        return $data;
-
     }
 }
