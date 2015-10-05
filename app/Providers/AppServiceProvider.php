@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
-        Validator::extend('valid_team',function($attribute, $value, $parameters){
+        Validator::extend('valid_team_mix',function($attribute, $value, $parameters){
 
             /* $value = Institución
              * posicion 0 'Género'
@@ -52,37 +52,73 @@ class AppServiceProvider extends ServiceProvider
 
                 /*
                  *
-    1 = Sumo robotizado NXT
-    2 =  Sumo robotizado EV3
-    3 = Futbol robotizado NXT
-    4 = Futbol robotizado EV3
-    5 = Blockrise
-    6 = Reto sorpresa
-    7 = Taekwondo robotizado
-    8 = Carrera de obst
-                 */
-            if($parameters[0] !='MIX'){
+            1 = Sumo robotizado NXT
+            2 =  Sumo robotizado EV3
+            3 = Futbol robotizado NXT
+            4 = Futbol robotizado EV3
+            5 = Blockrise
+            6 = Reto sorpresa
+            7 = Taekwo
+                ndo robotizado
+            8 = Carrera de obst
+                         */
+                    $teamMixto= Team::where('institution_id','=',$value)
+                        ->where('challenge_id','=',$parameters[1])
+                        ->where('gender','=','MIX')
+                        ->first();
+                    if(!is_null($teamMixto)){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                });
 
-                Team::where('gender','=',$parameters[0])->where();
+        Validator::extend('valid_team',function($attribute, $value, $parameters){
+            /* $value = Institución
+          * posicion 0 'Género'
+          * posicion 1 'Reto'
+          * posicion 2 'Grado'
+          */
 
+            /*
+             *
+        1 = Sumo robotizado NXT
+        2 =  Sumo robotizado EV3
+        3 = Futbol robotizado NXT
+        4 = Futbol robotizado EV3
+        5 = Blockrise
+        6 = Reto sorpresa
+        7 = Taekwondo robotizado
+        8 = Carrera de obst
+                     */
+
+
+            $grados = [1,2,3,4,7,8];
+            if(in_array($parameters[1],$grados)){
+                $dataGender = Team::where('institution_id','=',$value)
+                    ->where('challenge_id','=',$parameters[1])
+                    ->select('gender')->first();
+                if(is_null($dataGender)){
+                    return true;
+                }else{
+
+
+                }
+
+
+                foreach($dataGender as $d){
+                    print_r($d->gender);
+
+                }
+
+
+                Team::where('institution_id','=',$value)->where('challenge_id','=',$parameters[1])->where('gender','=',$parameters[1])->first();
             }else{
-
+                dd('no entra');
             }
-
-
-            echo"<pre>";
-                print_r($attribute);
-            echo"<br>";
-                print_r($value);
-            echo"<br>";
-
-            print_r($parameters);
-            echo"</pre>";
             dd();
+
         });
-
-
-
     }
 
     /**

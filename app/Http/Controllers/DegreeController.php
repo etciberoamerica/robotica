@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Degree;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -83,5 +84,14 @@ class DegreeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public static function getlist(){
+        $data =[];
+        $data +=['' => '-- Selecciona grado --'];
+        $data += Degree::lists('name','id')->toArray();
+        return $data;
+
     }
 }

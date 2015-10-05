@@ -10,4 +10,5 @@ class Degree extends Model
 {
     protected  $table='degrees';
 
+
 }

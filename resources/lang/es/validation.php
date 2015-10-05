@@ -12,6 +12,8 @@ return [
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
+    "valid_team_mix"   => "El equipo, institución registrado en un reto mixto",
+    "valid_team"       => "El equipo, institución registrado en un reto mixto",
     "name_team"        => "El :attribute ya existe",
     "alpha_space"      => ":attribute sólo puede contener letras y espacios",
     "accepted"         => ":attribute debe ser aceptado.",

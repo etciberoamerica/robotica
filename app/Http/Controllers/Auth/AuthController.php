@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\DegreeController;
+
 use App\Country;
 
 use Request;
@@ -55,12 +57,9 @@ class AuthController extends Controller
         $country= [];
         $country += [''=>'-- Selecciona Pais --'];
         $country += Country::lists('name', 'id')->toArray();
-
         $challenge= ChallengeController::getlist();
-
-
-
-        return view('tab',compact('country','challenge'));
+        $degree = DegreeController::getlist();
+        return view('tab',compact('country','challenge','degree'));
     }
 
 

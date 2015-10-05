@@ -74,21 +74,19 @@
                                     {!! Form::select('Ciudad',[''=>'-- Selecciona ciudad --'],'',['class'=>'form-control','id'=>'ciudad_id']) !!}
                                 </div>
                                 <div class="form-group">
+                                    * {!! Form::label('grado','Grado:') !!}
+                                    {!! Form::select('Grado',$degree,'',['class'=>'form-control','id'=>'grado_id']) !!}
+                                </div>
+                                <div id ='reto_div_id' class="form-group none">
+                                    * {!! Form::label('reto','Reto:') !!}
+                                    {!! Form::select('Reto',[''=>'-- Selecciona reto --'],'' ,['class'=>'form-control','id'=>'reto_id']) !!}
+                                </div>
+                                <div class="form-group none" id="gender_div_id">
                                     * {!! Form::label('gen','Género:') !!}<br><br/>
                                     {!! Form::label('mas','Masculino:') !!}
                                     {!! Form::radio('Género','MAS') !!}
                                     {!! Form::label('fem','Femenino:') !!}
                                     {!! Form::radio('Género','FEM') !!}
-                                    {!! Form::label('mix','Mixto:') !!}
-                                    {!! Form::radio('Género','MIX') !!}
-                                </div>
-                                <div class="form-group">
-                                    * {!! Form::label('reto','Reto:') !!}
-                                    {!! Form::select('Reto',$challenge,'' ,['class'=>'form-control','id'=>'reto_id']) !!}
-                                </div>
-                                <div class="form-group">
-                                    * {!! Form::label('grado','Grado:') !!}
-                                    {!! Form::select('Grado',[''=>'-- Seleciona grados --'],'',['class'=>'form-control','id'=>'grado_id']) !!}
                                 </div>
                             </div>
                             </p>
@@ -535,19 +533,21 @@
                         }
                     });
                 });
-                $('#reto_id').change(function(){
+
+                $('#grado_id').change(function(){
                     if($(this).val()){
                         $.ajax({
                             url     :'challenge/select',
                             data    :{
-                                challenge_id: $(this).val()
+                                degree_id: $(this).val()
                             },
                             type: 'GET',
                             success: function(data){
-                                $('#grado_id').empty();
-                                $('#grado_id').append('<option  value="">-- Seleciona grados --</option>');
+                                $('#reto_div_id').removeClass('none');
+                                $('#reto_id').empty();
+                                $('#reto_id').append('<option  value="">-- Seleciona grados --</option>');
                                 $.each(data, function(key, element){
-                                    $('#grado_id').append("<option value='" + key + "'>" + element + "</option>");
+                                    $('#reto_id').append("<option value='" + key + "'>" + element + "</option>");
                                 });
                             },error:function(){
                                 alert('Upsss los sentimos ocurrio un problema');
@@ -555,6 +555,23 @@
 
                         });
                     }else{
+
+                    }
+
+                });
+
+                $('#reto_id').change(function(){
+                    if($(this).val() == 6){
+                        $('#gender_div_id').removeClass('none');
+                        var html ='<label for="gen">Género:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Género"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Género">';
+                        html +='<label for="fem">Mixto:</label><input type="radio" value="MIX" name="Género">';
+                        $('#gender_div_id').empty();
+                        $('#gender_div_id').html(html);
+                    }else{
+                        $('#gender_div_id').removeClass('none');
+                        var html ='<label for="gen">Género:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Género"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Género">';
+                        $('#gender_div_id').empty();
+                        $('#gender_div_id').html(html);
 
                     }
 

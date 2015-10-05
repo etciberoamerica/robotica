@@ -112,7 +112,7 @@ class UserController extends Controller
     public function checkOne(Request $request){
         $data =Tool::removeSpace($request->all());
 
-        var_dump($data);
+        //var_dump($data);
 
         $dat_v= [
             'Género'    => $data['Género'],

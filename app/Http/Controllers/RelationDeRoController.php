@@ -97,14 +97,12 @@ class RelationDeRoController extends Controller
     }
 
     public function relationChalle(Request $request){
-        $challenge = $request->challenge_id;
-
+        $degree = $request->degree_id;
         $data = RelationDeRo::
-        join('degrees','degrees.id','=','relation_de_ro.degree_id')
-        ->select('relation_de_ro.*','degrees.*')
-        ->where('relation_de_ro.challenge_id',$challenge)
-            ->lists('degrees.name','degrees.id');
-
+        join('challenges','challenges.id','=','relation_de_ro.challenge_id')
+        ->select('relation_de_ro.*','challenges.*')
+        ->where('relation_de_ro.degree_id',$degree)
+            ->lists('challenges.name','challenges.id');
         return $data;
 
     }
