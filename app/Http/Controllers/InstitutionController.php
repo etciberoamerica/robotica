@@ -23,9 +23,14 @@ class InstitutionController extends Controller
     {
         $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         $url_actual = explode('?',$url_actual);
-        $insti=Institution::paginate(10);
+        $insti=Institution::orderBy('id','desc')->paginate(env('PAG'));
         $insti->setPath($url_actual[0]);
         return view('institutions.index',compact('insti'));
+    }
+
+    public function add(){
+
+        return view('institutions.add');
     }
 
     /**
@@ -81,13 +86,59 @@ class InstitutionController extends Controller
      * @param  int  $id
      * @return Response
      */
+
+    public function returnType($data){
+        switch($data){
+            case 'MAS':
+                $a= 'mas';
+                break;
+            case 'FEM':
+                $a= 'fem';
+                break;
+            case 'MIX':
+                $a= 'mix';
+                break;
+
+        }
+        return $a;
+    }
+
+
     public function update(Request $request)
     {
         $data= Tool::removeSpace($request->all());
-        echo"<pre>";
-        print_r($data);
-        print_r($request->all());
-        echo"</pre>";
+        //dd($data);
+
+        if($data['id']){
+
+
+
+
+        }else{
+            $ins = new Institution;
+            $ins->name = $data['nombre'];
+            $ins->user_id=1;
+            if(isset($data['Tipo'][0])){
+                $r=$this->returnType($data['Tipo'][0]);
+                $ins->$r= true;
+            }
+            if(isset($data['Tipo'][1])){
+                $r=$this->returnType($data['Tipo'][1]);
+                $ins->$r= true;
+            }
+            if(isset($data['Tipo'][2])){
+                $r=$this->returnType($data['Tipo'][2]);
+                $ins->$r= true;
+            }
+            $ins->save();
+            $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+            $url_actual = explode('?',$url_actual);
+            $insti=Institution::orderBy('id','desc')->paginate(env('PAG'));
+            $insti->setPath($url_actual[0]);
+            return view('institutions.index',compact('insti'));
+        }
+
+
     }
 
     /**

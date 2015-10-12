@@ -19,6 +19,8 @@ Route::post('register',['as'=>'register','uses'=>function(){
 }]);
 
 
+Route::get('add/institutions',['as'=>'add/institutions','uses'=>'InstitutionController@add']);
+
 
 Route::get('/',['as'=>'/','uses'=>'Auth\AuthController@getRegistertab']);
 
@@ -27,7 +29,7 @@ Route::get('country/select',['as'=>'country/select','uses'=>'StateController@get
 
 Route:get('city/select',['as'=>'city/select','uses'=>'CityController@getlist']);
 
-Route::get('challenge',['as'=>'challenge','uses'=>'RelationDeRoController@relation']);
+//Route::get('challenge',['as'=>'challenge','uses'=>'RelationDeRoController@relation']);
 
 Route::get('challenge/select',['as'=>'challenge/select','uses'=>'RelationDeRoController@relationChalle']);
 
@@ -36,6 +38,13 @@ Route::get('check/one',['as'=>'check/one','uses'=>'UserController@checkOne']);
 Route::get('check/two',['as'=>'check/two','uses'=>'UserController@checkTwo']);
 Route::get('check/three',['as'=>'check/three','uses'=>'UserController@checkThree']);
 Route::get('check/name_team',['as'=>'check/name_team','uses'=>'UserController@checkNameTeam']);
+
+
+Route::get('dashboard',['as'=>'dashboard','uses'=>'UserController@dash']);
+
+
+
+Route::get('challenge',['as'=>'challenge','uses'=>'ChallengeController@index']);
 
 
 

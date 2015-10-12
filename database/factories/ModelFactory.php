@@ -27,6 +27,9 @@ $factory->define(App\Institution::class, function (Faker\Generator $faker) {
     return [
         'name'      => 'Instituto '.$faker->country,
         'user_id'   => 1,
+        'mas'       =>$faker->randomElement([0,1]),
+        'fem'       =>$faker->randomElement([0,1]),
+        'mix'       =>$faker->randomElement([0,1]),
         'active'    => $faker->randomElement([0,1])
     ];
 });

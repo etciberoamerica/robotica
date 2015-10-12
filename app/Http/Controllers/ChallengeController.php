@@ -16,7 +16,13 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $url_actual = explode('?',$url_actual);
+        $pag = Challenge::orderBy('id','desc')->paginate(env('PAG'));
+        $pag->setPath($url_actual[0]);
+        return view('challenge.index',compact('pag'));
     }
 
     /**

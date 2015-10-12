@@ -6,8 +6,17 @@
 
 
             <div class="col-md-12">
+                <br><br>
+
+                <p data-placement="top" data-toggle="tooltip" title="Edit">
+                    <button id="btn-e" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                        Nueva institucion
+                    </button>
+                </p>
                 <h4>Instituciones registradas</h4>
                 <div class="table-responsive">
+
+
 
 
                     <table id="mytable" class="table table-bordred table-striped">
@@ -57,9 +66,7 @@
                     </ul>
 
 
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-                    </label>
+
                 </div>
 
             </div>
@@ -83,27 +90,27 @@
                     </div>
                     <div class="form-group">
 
-                        * {!! Form::label('genero','Género') !!}:
+                        * {!! Form::label('genero','Tipo') !!}:
                         <div class="checkbox">
                             <label for="">
-                                {!! Form::checkbox('Genero[]', 'MA',false,['id' => 'inlineCheckbox1']) !!}
+                                {!! Form::checkbox('Tipo[]', 'MAS',false,['id' => 'inlineCheckbox1']) !!}
                                 {!! Form::label('masculino','Masculino') !!}
                             </label>
                         </div>
                         <div class="checkbox">
                             <label for="">
-                                {!! Form::checkbox('Genero[]', 'FE',false,['id' => 'inlineCheckbox2']) !!}
+                                {!! Form::checkbox('Tipo[]', 'FEM',false,['id' => 'inlineCheckbox2']) !!}
                                 {!! Form::label('femenino','Femenino') !!}
                             </label>
                         </div>
                         <div class="checkbox">
                             <label for="">
-                                {!! Form::checkbox('Genero[]', 'MI',false,['id' => 'inlineCheckbox3']) !!}
+                                {!! Form::checkbox('Tipo[]', 'MIX',false,['id' => 'inlineCheckbox3']) !!}
                                 {!! Form::label('mixto','Mixto') !!}
                             </label>
                         </div>
 
-                        {!!  Form::select('Género', ['' => 'Seleciona el genero ','MA'=>'Masculino','FE'=>'Femenino','MI'=>'Mixto'], '' ,['id'=>'genero_id','class' => 'form-control']) !!}
+                       <!-- {!!  Form::select('Género', ['' => 'Seleciona el genero ','MA'=>'Masculino','FE'=>'Femenino','MI'=>'Mixto'], '' ,['id'=>'genero_id','class' => 'form-control']) !!}-->
 
                     </div>
                     <div class="form-group">

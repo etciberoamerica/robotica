@@ -16,6 +16,9 @@ class CreateInstitutionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('user_id');
+            $table->boolean('mas');
+            $table->boolean('fem');
+            $table->boolean('mix');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

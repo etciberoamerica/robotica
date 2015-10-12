@@ -112,10 +112,8 @@ class UserController extends Controller
     public function checkOne(Request $request){
         $data =Tool::removeSpace($request->all());
 
-        //var_dump($data);
-
         $dat_v= [
-            'Género'    => $data['Género'],
+            'Tipo'    => $data['Tipo'],
             'Reto'      => $data['Reto'],
             'Grado'      => $data['Grado']
         ];
@@ -135,7 +133,7 @@ class UserController extends Controller
             "País" => "required",
             "Estado" => "required",
             "Ciudad" => "required",
-            "Género" => "required",
+            "Tipo" => "required",
             "Reto" => "required",
             "Grado" => "required"
         ]);
@@ -339,5 +337,10 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
         ]);
+    }
+
+
+    public function dash(){
+        return view('users.index');
     }
 }

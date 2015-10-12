@@ -82,11 +82,11 @@
                                     {!! Form::select('Reto',[''=>'-- Selecciona reto --'],'' ,['class'=>'form-control','id'=>'reto_id']) !!}
                                 </div>
                                 <div class="form-group none" id="gender_div_id">
-                                    * {!! Form::label('gen','Género:') !!}<br><br/>
+                                    * {!! Form::label('gen','Tipo:') !!}<br><br/>
                                     {!! Form::label('mas','Masculino:') !!}
-                                    {!! Form::radio('Género','MAS') !!}
+                                    {!! Form::radio('Tipo','MAS') !!}
                                     {!! Form::label('fem','Femenino:') !!}
-                                    {!! Form::radio('Género','FEM') !!}
+                                    {!! Form::radio('Tipo','FEM') !!}
                                 </div>
                             </div>
                             </p>
@@ -279,7 +279,7 @@
                                 País:$('#pais_id').val(),
                                 Estado:$('#pais_id').val(),
                                 Ciudad:$('#ciudad_id').val(),
-                                Género:$( "input[name$='Género']:checked" ).val(),
+                                Tipo:$( "input[name$='Tipo']:checked" ).val(),
                                 Reto:$('#reto_id').val(),
                                 Grado:$('#grado_id').val(),
                                 tab :'uno'
@@ -500,7 +500,7 @@
                             País:$('#pais_id').val(),
                             Estado:$('#pais_id').val(),
                             Ciudad:$('#ciudad_id').val(),
-                            Género:$( "input[name$='Género']:checked" ).val(),
+                            Tipo:$( "input[name$='Tipo']:checked" ).val(),
                             Reto:$('#reto_id').val(),
                             Grado:$('#grado_id').val(),
                         },
@@ -563,13 +563,13 @@
                 $('#reto_id').change(function(){
                     if($(this).val() == 6){
                         $('#gender_div_id').removeClass('none');
-                        var html ='<label for="gen">Género:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Género"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Género">';
-                        html +='<label for="fem">Mixto:</label><input type="radio" value="MIX" name="Género">';
+                        var html ='<label for="gen">Tipo:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Tipo"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Tipo">';
+                        html +='<label for="fem">Mixto:</label><input type="radio" value="MIX" name="Tipo">';
                         $('#gender_div_id').empty();
                         $('#gender_div_id').html(html);
                     }else{
                         $('#gender_div_id').removeClass('none');
-                        var html ='<label for="gen">Género:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Género"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Género">';
+                        var html ='<label for="gen">Tipo:</label><br><label for="mas">Masculino:</label><input type="radio" value="MAS" name="Tipo"><label for="fem">Femenino:</label><input type="radio" value="FEM" name="Tipo">';
                         $('#gender_div_id').empty();
                         $('#gender_div_id').html(html);
 
@@ -664,7 +664,7 @@
             $('#pais_id').val('').change();
             $('#state_id').addClass('none');
             $('#city_id').addClass('none');
-            $("input[name$='Género']:checked" ).attr("checked", false);
+            $("input[name$='Tipo']:checked" ).attr("checked", false);
             $('#reto_id').val('').change();
             $('#grado_id').empty();
             $('#grado_id').append('<option  value="">-- Seleciona grados --</option>');
