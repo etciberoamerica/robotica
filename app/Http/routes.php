@@ -45,6 +45,17 @@ Route::get('dashboard',['as'=>'dashboard','uses'=>'UserController@dash']);
 
 
 Route::get('challenge',['as'=>'challenge','uses'=>'ChallengeController@index']);
+Route::get('challenge/add',['as'=>'challenge/add','uses'=>'ChallengeController@create']);
+Route::get('challenge/delete',['as'=>'challenge/delete','uses'=>'ChallengeController@destroy']);
+
+Route::get('editChallen',['as'=>'editChallen','uses' =>'ChallengeController@edit']);
+
+
+Route::get('stages',['as'=>'stages','uses'=>'StageController@index']);
+Route::get('stages/find',['as'=>'stages/find','uses'=>'StageController@edit']);
+Route::get('stage/add',['as'=>'stage/add','uses'=>'StageController@create']);
+Route::get('stage/delete',['as'=>'stage/delete','uses'=>'StageController@destroy']);
+
 
 
 

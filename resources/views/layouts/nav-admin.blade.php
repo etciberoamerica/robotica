@@ -34,18 +34,16 @@
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Administracion <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Retos</a></li>
-                        <li><a href="#">Instituciones</a></li>
-                        <li><a href="#"></a></li>
+                        <li><a href="{!! route('challenge') !!}">Retos</a></li>
+                        <li><a href="{!! route('institutions') !!}">Instituciones</a></li>
+                        <li><a href="{!! route('stages') !!}">Escenarios</a></li>
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                         
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right search-form" role="search">
-                <input type="text" class="form-control" placeholder="Search" />
-            </form>
+
         </div>
     </div>
 </nav>

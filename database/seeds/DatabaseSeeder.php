@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RelationrodeSeeder::class);
         $this->call(ChallengeSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(StageSeeder::class);
 
 
 

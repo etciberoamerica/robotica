@@ -33,3 +33,12 @@ $factory->define(App\Institution::class, function (Faker\Generator $faker) {
         'active'    => $faker->randomElement([0,1])
     ];
 });
+
+
+$factory->define(App\Stage::class, function(Faker\Generator $faker){
+    $faker->addProvider(new Faker\Provider\Internet($faker));
+    return [
+        'name' => $faker->userName
+    ];
+
+});

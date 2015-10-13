@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-Use App\Challenge;
-
+use App\Stage;
 use App\Tool;
-class ChallengeController extends Controller
+
+class StageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +18,39 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-       $pag = $this->pagination();
-        return view('challenge.index',compact('pag'));
+        $pag = $this->pagination();
+        return view('stages.index',compact('pag'));
     }
 
     public function pagination(){
         $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         $url_actual = explode('?',$url_actual);
-        $pag = Challenge::orderBy('id','desc')->paginate(env('PAG'));
+        $pag = Stage::orderBy('id','desc')->paginate(env('PAG'));
         $pag->setPath($url_actual[0]);
         return $pag;
+    }
+
+
+    public function create(Request $request){
+        $data= Tool::removeSpace($request->all());
+        if($data['id']){
+            $sta = Stage::find($data['id']);
+            $sta->name     =   $data['Nombre'];
+            $sta->active   =   $data['Estatus'];
+            $sta->save();
+        }else{
+            Stage::create([
+                'name'      => $data['Nombre'],
+            ]);
+        }
+        $pag = $this->pagination();
+        return view('stages.index',compact('pag'));
+
+    }
+
+    public function edit(Request $request){
+        $data= Tool::removeSpace($request->all());
+        return Stage::find($data['id']);
     }
 
     /**
@@ -35,22 +58,8 @@ class ChallengeController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request)
-    {
-        $data= Tool::removeSpace($request->all());
-        if($data['id']){
-            $chan = Challenge::find($data['id']);
-            $chan->name     =   $data['Nombre'];
-            $chan->active   =   $data['Estatus'];
-            $chan->save();
-        }else{
-            Challenge::create([
-                'name'      => $data['Nombre'],
-            ]);
-        }
-        $pag = $this->pagination();
-        return view('challenge.index',compact('pag'));
-    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -74,17 +83,6 @@ class ChallengeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit(Request $request)
-    {
-        $data= Tool::removeSpace($request->all());
-        return Challenge::find($data['id']);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -106,17 +104,9 @@ class ChallengeController extends Controller
      */
     public function destroy(Request $request)
     {
-        $d=Challenge::find($request->id);
+        $d=Stage::find($request->id);
         $d->delete();
         $pag = $this->pagination();
         return view('challenge.index',compact('pag'));
-    }
-
-    public static function getlist(){
-        $data =[];
-        $data +=['' => '-- Selecciona categoria --'];
-        $data += Challenge::lists('name','id')->toArray();
-        return $data;
-
     }
 }

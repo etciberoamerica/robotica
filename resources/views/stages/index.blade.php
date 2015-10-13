@@ -6,57 +6,57 @@
                 <br><br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                     <button id="btn" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
-                        Nuevo reto
+                        Nuevo escenario
                     </button>
                 </p>
-                <h4>Retos registrados</h4>
-                <div class="table-responsive">
-                    <table id="mytable" class="table table-bordred table-striped">
-                        <thead>
-                         <tr>
-                             <th>Identificador</th>
-                             <th>Nombre</th>
-                             <th>Activo</th>
-                             <th>Editar</th>
-                             <th>Eliminar</th>
-                         </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pag as $p)
-                                <tr>
-                                    <td>{!! $p->id !!}</td>
-                                    <td>{!! $p->name !!}</td>
-                                    <td>
-                                        @if ($p->active)
-                                            <span class='glyphicon glyphicon-ok' style="color: green;"></span>
-                                        @else
-                                            <span class='glyphicon glyphicon-remove' style="color:red;"></span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <button id="btn-e" class="btn btn-primary btn-xs" data-id="{!! $p->id !!}" data-title="Edit" data-toggle="modal" data-target="#edit" >
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button id="btn-d" class="btn btn-danger btn-xs" data-id="{!! $p->id !!}" data-title="Delete" data-toggle="modal" data-target="#delete" >
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </p>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
+                <h4>Escenarios registrados</h4>
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Activo</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </thead>
+                    <tbody>
+                        @foreach($pag as $p)
                             <tr>
-                                <td colspan="5"> {!! $pag->render() !!}</td>
+                                <td>{!! $p->name !!}</td>
+                                <td>
+                                    @if ($p->active)
+                                        <span class='glyphicon glyphicon-ok' style="color: green;"></span>
+                                    @else
+                                        <span class='glyphicon glyphicon-remove' style="color:red;"></span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                        <button id="btn-e" class="btn btn-primary btn-xs" data-id="{!! $p->id !!}" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button id="btn-d" class="btn btn-danger btn-xs" data-id="{!! $p->id !!}" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </td>
                             </tr>
-                        </tfoot>
-                    </table>
-                </div>
+
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                {!! $pag->render() !!}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                     <h4 class="modal-title custom_align" id="Heading">Datos <span id="name_institution"></span></h4>
                 </div>
-                {!! Form::open(['route' => 'challenge/add', 'class' => 'form','id'=>'form-group']) !!}
+                {!! Form::open(['route' => 'stage/add', 'class' => 'form','id'=>'form-group']) !!}
                 <div class="modal-body">
                     {!! Form::hidden('id','',['id'=>'identificador','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     <div class="form-group">
@@ -76,7 +76,7 @@
                         {!! Form::text('Nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
-                         {!! Form::label('estatus','Estatus') !!}:
+                        {!! Form::label('estatus','Estatus') !!}:
                         {!!  Form::select('Estatus', ['' => 'Seleciona el estatus ','1'=>'Activo','0'=>'Inactivo'], '' ,['id'=>'estatus_id','class' => 'form-control']) !!}
                     </div>
                 </div>
@@ -141,7 +141,7 @@
             });
             $('#btn-submit').click(function(){
                 $.ajax({
-                    url:'challenge/add',
+                    url:'stage/add',
                     method:'GET',
                     data :$('#form-group').serialize()
                 }).done(function(data){
@@ -152,7 +152,7 @@
             });
             $('#btn-yes').click(function(){
                 $.ajax({
-                    url:'challenge/delete',
+                    url:'stage/delete',
                     method:'GET',
                     data :{id: $('#identificador-de').val()}
                 }).done(function(data){
@@ -161,10 +161,13 @@
                     alert('Upss lo sentimos surgio un error intenat mas tarde');
                 });
             });
+
+
         });
+
         function edit(id){
             $.ajax({
-                url:'editChallen',
+                url:'stages/find',
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
@@ -178,7 +181,7 @@
         }
         function delet(id){
             $.ajax({
-                url:'editChallen',
+                url:'stages/find',
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
@@ -188,4 +191,5 @@
             });
         }
     </script>
+
 @stop
