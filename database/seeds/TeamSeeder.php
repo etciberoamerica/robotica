@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Stage;
 
-class StageSeeder extends Seeder
+use App\Team;
+
+class TeamSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +13,6 @@ class StageSeeder extends Seeder
      */
     public function run()
     {
-
-        factory(Stage::class,40)->create();
+        factory(Team::class,400)->create();
     }
 }

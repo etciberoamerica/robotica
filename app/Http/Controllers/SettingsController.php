@@ -7,29 +7,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Country;
-use App\State;
-use App\City;
-class CountryController extends Controller
+
+use App\Settings;
+
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        //dd($request->country_id);
-        $country =  Country::find($request->country_id);
-        $city    =  City::find($request->city_id);
-        $state   =  State::find($request->state_id);
 
-        return [
-            'country' =>$country->name,
-            'city'    => $city->name,
-            'state'   =>$state->name
-            ];
-
+        return view('settings/index');
     }
 
     /**
@@ -97,6 +88,4 @@ class CountryController extends Controller
     {
         //
     }
-
-
 }

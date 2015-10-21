@@ -12,13 +12,16 @@ class CreateInstitutionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('institution', function(Blueprint $table){
+        Schema::create('rb_institution', function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
             $table->string('user_id');
             $table->boolean('mas');
             $table->boolean('fem');
             $table->boolean('mix');
+            $table->integer('country_id');
+            $table->integer('state_id');
+            $table->integer('city_id');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
@@ -31,6 +34,6 @@ class CreateInstitutionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('institution');
+        Schema::drop('rb_institution');
     }
 }

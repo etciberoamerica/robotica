@@ -6,8 +6,7 @@
 
 
             <div class="col-md-12">
-                <br><br>
-
+                <br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                     <button id="btn-e" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
                         Nueva institucion
@@ -89,6 +88,18 @@
                           {!! Form::text('nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
+                        *{!! Form::label('pais','País') !!}
+                        {!! Form::select('País',$country,'' ,['class'=>'form-control','id'=>'pais_id']) !!}
+                    </div>
+                    <div id='state_id' class="form-group none">
+                        *{!! Form::label('estado','Estado') !!}
+                        {!! Form::select('Estado',[''=>'-- Selecciona Estado --'],'',['class'=>'form-control','id'=>'estado_id']) !!}
+                    </div>
+                    <div id='city_id' class="form-group none">
+                        *{!! Form::label('estado','Ciudad') !!}
+                        {!! Form::select('Ciudad',[''=>'-- Selecciona ciudad --'],'',['class'=>'form-control','id'=>'ciudad_id']) !!}
+                    </div>
+                    <div class="form-group">
 
                         * {!! Form::label('genero','Tipo') !!}:
                         <div class="checkbox">
@@ -155,6 +166,60 @@
 
     <script>
         $(document).ready(function(){
+            $('#pais_id').change(function(){
+                if($(this).val()){
+                    $('#state_id').removeClass('none');
+                    $.ajax({
+                        url:'country/select',
+                        data:{
+                            country_id: $(this).val()
+                        },
+                        type: 'GET',
+                        success:function(data){
+                            $('#estado_id').empty();
+                            $.each(data, function(key, element){
+                                $('#estado_id').append("<option value='" + key + "'>" + element + "</option>");
+                            });
+
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+                }else{
+                    $('#estado_id').empty();
+                    $('#estado_id').append("<option value='0'>-- Seleciona estado --</option>");
+                    $('#state_id').addClass('none');
+                }
+
+            });
+
+            $('#estado_id').change(function(){
+                if($(this).val()){
+                    $('#city_id').removeClass('none');
+                    $.ajax({
+                        url:'city/select',
+                        data:{
+                            city_id: $(this).val()
+                        },
+                        type: 'GET',
+                        success:function(data){
+                            $('#ciudad_id').empty();
+                            $.each(data, function(key, element){
+                                $('#ciudad_id').append("<option value='" + key + "'>" + element + "</option>");
+                            });
+
+                        },error:function(){
+                            alert('Upsss los sentimos ocurrio un problema');
+                        }
+                    });
+                }else{
+                    $('#ciudad_id').empty();
+                    $('#ciudad_id').append("<option value='0'>-- Seleciona ciudad --</option>");
+                    $('#city_id').addClass('none');
+                }
+            });
+
+
             $('#form-group').submit(function(){
 
                 return true;

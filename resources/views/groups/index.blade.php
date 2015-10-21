@@ -6,26 +6,26 @@
                 <br><br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                     <button id="btn" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
-                        Nuevo reto
+                        Nuevo Grupo
                     </button>
                 </p>
-                <h4>Retos registrados</h4>
+                <h4>Gupos  registrados</h4>
                 <div class="table-responsive">
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
-                         <tr>
-                             <th>Identificador</th>
-                             <th>Nombre</th>
-                             <th>Activo</th>
-                             <th>Editar</th>
-                             <th>Eliminar</th>
-                         </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Reto</th>
+                                <th>Activo</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($pag as $p)
                                 <tr>
-                                    <td>{!! $p->id !!}</td>
                                     <td>{!! $p->name !!}</td>
+                                    <td>{!! $p->name_cha !!}</td>
                                     <td>
                                         @if ($p->active)
                                             <span class='glyphicon glyphicon-ok' style="color: green;"></span>
@@ -47,12 +47,15 @@
                                             </button>
                                         </p>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5"> {!! $pag->render() !!}</td>
+                                <td colspan="5">
+                                    {!! $pag->render() !!}
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -68,16 +71,19 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                     <h4 class="modal-title custom_align" id="Heading">Datos <span id="name_institution"></span></h4>
                 </div>
-                {!! Form::open(['route' => 'challenge/add', 'class' => 'form','id'=>'form-group']) !!}
+                {!! Form::open(['route' => 'stage/add', 'class' => 'form','id'=>'form-group']) !!}
                 <div class="modal-body">
                     {!! Form::hidden('id','',['id'=>'identificador','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     <div class="form-group">
                         <span class="required">*</span> {!! Form::label('nombre','Nombre') !!}:
                         {!! Form::text('Nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
-
                     <div class="form-group">
-                         {!! Form::label('estatus','Estatus') !!}:
+                        {!! Form::label('reto','Reto') !!}:
+                        {!!  Form::select('Reto', $cha , '' ,['id'=>'reto_id','class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('estatus','Estatus') !!}:
                         {!!  Form::select('Estatus', ['' => 'Seleciona el estatus ','1'=>'Activo','0'=>'Inactivo'], '' ,['id'=>'estatus_id','class' => 'form-control']) !!}
                     </div>
                 </div>
@@ -117,9 +123,9 @@
     <script>
         $(document).ready(function(){
             $('#btn').click(function(){
-                console.log('s');
                 $('#identificador').val('');
                 $('#nombre_id').val('');
+                $('#reto_id > option[value="0"]').attr('selected', 'selected');
                 $('#estatus_id > option[value=" "]').attr('selected', 'selected');
             });
 
@@ -142,7 +148,7 @@
             });
             $('#btn-submit').click(function(){
                 $.ajax({
-                    url:'challenge/add',
+                    url:'groups/add',
                     method:'GET',
                     data :$('#form-group').serialize()
                 }).done(function(data){
@@ -153,7 +159,7 @@
             });
             $('#btn-yes').click(function(){
                 $.ajax({
-                    url:'challenge/delete',
+                    url:'groups/delete',
                     method:'GET',
                     data :{id: $('#identificador-de').val()}
                 }).done(function(data){
@@ -162,16 +168,20 @@
                     alert('Upss lo sentimos surgio un error intenat mas tarde');
                 });
             });
+
+
         });
+
         function edit(id){
             $.ajax({
-                url:'editChallen',
+                url:'groups/find',
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
                 $('#identificador').val(data.id);
                 $('#nombre_id').val(data.name);
                 $('#name_institution').html(data.name);
+                $('#reto_id > option[value='+data.challenge_id+']').attr('selected', 'selected');
                 $('#estatus_id > option[value='+data.active+']').attr('selected', 'selected');
             }).fail(function(){
                 alert('Upss lo sentimos surgio un error intenat mas tarde');
@@ -179,7 +189,7 @@
         }
         function delet(id){
             $.ajax({
-                url:'editChallen',
+                url:'groups/find',
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
@@ -189,4 +199,5 @@
             });
         }
     </script>
+
 @stop

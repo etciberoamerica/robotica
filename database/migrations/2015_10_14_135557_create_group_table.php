@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStagesTable extends Migration
+class CreateGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateStagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rb_stages',function(Blueprint $table){
+        Schema::create('rb_groups',function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
             $table->integer('challenge_id');
@@ -28,6 +28,6 @@ class CreateStagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rb_stages');
+        Schema::drop('rb_groups');
     }
 }

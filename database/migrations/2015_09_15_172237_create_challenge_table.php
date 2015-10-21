@@ -12,7 +12,7 @@ class CreateChallengeTable extends Migration
      */
     public function up()
     {
-        Schema::create('challenges',function(Blueprint $table){
+        Schema::create('rb_challenges',function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
             $table->boolean('active')->default(1);
@@ -27,6 +27,6 @@ class CreateChallengeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('challenges');
+        Schema::drop('rb_challenges');
     }
 }

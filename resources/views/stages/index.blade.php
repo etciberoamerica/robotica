@@ -76,6 +76,10 @@
                         {!! Form::text('Nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
+                        {!! Form::label('reto','Reto') !!}:
+                        {!!  Form::select('Reto', $cha , '' ,['id'=>'reto_id','class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
                         {!! Form::label('estatus','Estatus') !!}:
                         {!!  Form::select('Estatus', ['' => 'Seleciona el estatus ','1'=>'Activo','0'=>'Inactivo'], '' ,['id'=>'estatus_id','class' => 'form-control']) !!}
                     </div>

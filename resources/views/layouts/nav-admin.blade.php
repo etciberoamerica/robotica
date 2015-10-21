@@ -21,6 +21,32 @@
                     </ul>
                 </li>
                 <li class="active"><a href="#">Ana Sayfa <span class="sr-only">(current)</span></a></li>
+
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Administracion <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{!! route('challenge') !!}">Retos</a></li>
+                        <li><a href="{!! route('institutions') !!}">Instituciones</a></li>
+                        <li><a href="{!! route('stages') !!}">Escenarios</a></li>
+                        <li><a href="{!! route('groups') !!}">Grupos</a></li>
+                        <li class="dropdown-submenu">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Equipos</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{!! route('dashboard/team',['id' => 0]) !!}">General</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 1]) !!}">Sumo robotizado NXT</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 2]) !!}">Sumo robotizado EV3</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 3]) !!}">Futbol robotizado NXT</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 4]) !!}">Futbol robotizado EV3</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 5]) !!}">Blockrise</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 6]) !!}">Reto sorpresa</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 7]) !!}">Taekwondo robotizado</a></li>
+                                <li><a href="{!! route('dashboard/team',['id' => 8]) !!}">Carrera de obstaculos</a></li>
+                              
+                            </ul>
+                        </li>
+                        <li><a href="{!! route('dashboard/settings') !!}">Configuración</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -28,19 +54,11 @@
                         <li><a href="#">Yard?m</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Ayarlar</a></li>
-                        <li><a href="#exit">�?k?? yap</a></li>
+                        <li><a href="#exit">Ç?k?? yap</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Administracion <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{!! route('challenge') !!}">Retos</a></li>
-                        <li><a href="{!! route('institutions') !!}">Instituciones</a></li>
-                        <li><a href="{!! route('stages') !!}">Escenarios</a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        
-                    </ul>
+                    <a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-off"></i>Salir</a>
                 </li>
             </ul>
 

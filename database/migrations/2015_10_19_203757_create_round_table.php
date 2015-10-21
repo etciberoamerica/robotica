@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStagesTable extends Migration
+class CreateRoundTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,14 @@ class CreateStagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rb_stages',function(Blueprint $table){
+        Schema::create('rb_round',function(Blueprint $table){
             $table->increments('id');
-            $table->string('name');
+            $table->integer('team_id');
             $table->integer('challenge_id');
+            $table->integer('stage_id');
+            $table->time('schedule_start');
+            $table->time('schedule_end');
+            $table->date('day');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
@@ -28,6 +32,6 @@ class CreateStagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rb_stages');
+        Schema::drop('rb_round');
     }
 }

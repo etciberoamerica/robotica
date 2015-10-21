@@ -8,9 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Tool;
-
-
 use App\Institution;
+use App\Country;
 
 class InstitutionController extends Controller
 {
@@ -21,16 +20,26 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-        $url_actual = explode('?',$url_actual);
-        $insti=Institution::orderBy('id','desc')->paginate(env('PAG'));
-        $insti->setPath($url_actual[0]);
-        return view('institutions.index',compact('insti'));
+        $country= [];
+        $country += [''=>'-- Selecciona Pais --'];
+        $country += Country::lists('name', 'id')->toArray();
+        $insti = $this->pagination();
+
+        return view('institutions.index',compact('insti','country'));
     }
 
     public function add(){
 
         return view('institutions.add');
+    }
+
+
+    public function pagination(){
+        $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $url_actual = explode('?',$url_actual);
+        $insti=Institution::orderBy('id','desc')->paginate(env('PAG'));
+        $insti->setPath($url_actual[0]);
+        return $insti;
     }
 
     /**
@@ -107,8 +116,6 @@ class InstitutionController extends Controller
     public function update(Request $request)
     {
         $data= Tool::removeSpace($request->all());
-        //dd($data);
-
         if($data['id']){
 
 
@@ -130,12 +137,17 @@ class InstitutionController extends Controller
                 $r=$this->returnType($data['Tipo'][2]);
                 $ins->$r= true;
             }
+            $ins->country_id    = $data['País'];
+            $ins->state_id      = $data['Estado'];
+            $ins->city_id       = $data['Ciudad'];
+
             $ins->save();
-            $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-            $url_actual = explode('?',$url_actual);
-            $insti=Institution::orderBy('id','desc')->paginate(env('PAG'));
-            $insti->setPath($url_actual[0]);
-            return view('institutions.index',compact('insti'));
+            $country= [];
+            $country += [''=>'-- Selecciona Pais --'];
+            $country += Country::lists('name', 'id')->toArray();
+            $insti = $this->pagination();
+
+            return view('institutions.index',compact('insti','country'));
         }
 
 

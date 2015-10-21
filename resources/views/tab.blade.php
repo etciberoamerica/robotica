@@ -53,6 +53,21 @@
                                     {!! Form::text('institución','',['class'=>'form-control','id'=>'institución_id']) !!}
                                     {!! Form::hidden('institution_id','',['id'=>'institution_id']) !!}
                                 </div>
+                                <div id="paises" class="none">
+                                    <div class="form-group">
+                                        {!! Form::label('País','País') !!}
+                                        {!! Form::text('País','',['class'=>'form-control','id'=>'txt_pais_id','disabled'=> true]) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('Estado','Estado') !!}
+                                        {!! Form::text('Estado','',['class'=>'form-control','id'=>'txt_estado_id','disabled'=> true]) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('Ciudad','Ciudad') !!}
+                                        {!! Form::text('Ciudad','',['class'=>'form-control','id'=>'txt_ciudad_id','disabled'=> true]) !!}
+                                    </div>
+
+                                </div>
                                 <div class="form-group">
                                     *{!! Form::label('nombre_team','Nombre del equipo') !!}
                                     {!! Form::text('Nombre del equipo','',['class'=>'form-control','id'=>'nombre_equipo_id']) !!}
@@ -61,6 +76,7 @@
                                     *{!! Form::label('nombre_bot','Nombre del Robot') !!}
                                     {!! Form::text('Nombre del robot','',['class'=>'form-control','id'=>'nombre_robot_id']) !!}
                                 </div>
+                                <!--
                                 <div class="form-group">
                                     *{!! Form::label('pais','País') !!}
                                     {!! Form::select('País',$country,'' ,['class'=>'form-control','id'=>'pais_id']) !!}
@@ -73,6 +89,7 @@
                                     *{!! Form::label('estado','Ciudad') !!}
                                     {!! Form::select('Ciudad',[''=>'-- Selecciona ciudad --'],'',['class'=>'form-control','id'=>'ciudad_id']) !!}
                                 </div>
+                                -->
                                 <div class="form-group">
                                     * {!! Form::label('grado','Grado:') !!}
                                     {!! Form::select('Grado',$degree,'',['class'=>'form-control','id'=>'grado_id']) !!}
@@ -577,6 +594,8 @@
 
                 });
 
+                /*
+
                 $('#pais_id').change(function(){
                     if($(this).val()){
                         $('#state_id').removeClass('none');
@@ -630,6 +649,8 @@
                         $('#city_id').addClass('none');
                     }
                 });
+
+                */
                 $("#institución_id").autocomplete({
                     serviceUrl: "autocompleintitu",
                     type: "GET",
@@ -642,19 +663,38 @@
                                 return {
                                     id: dataItem.id,
                                     value: dataItem.name,
-                                    poblacion: dataItem.poblacion,
-                                    municipio: dataItem.municipio,
-                                    estado: dataItem.estado,
-                                    cp: dataItem.cp
+                                    country_id: dataItem.country_id,
+                                    state_id: dataItem.state_id,
+                                    city_id: dataItem.city_id
                                 };
                             })
                         };
                     },
                     onSelect: function (suggestion) {
+                        getDataCity(suggestion);
                         $('#institution_id').val(suggestion.id);
                     }
                 });
             });
+            function getDataCity(suggestion){
+                $.ajax({
+                    url:'country/data',
+                    data:{
+                        country_id: suggestion.country_id,
+                        state_id:   suggestion.state_id,
+                        city_id:    suggestion.city_id
+                    },
+                    type: 'GET',
+                    success:function(data){
+                        $('#paises').removeClass('none');
+                        $('#txt_pais_id').val(data.country);
+                        $('#txt_estado_id').val(data.state);
+                        $('#txt_ciudad_id').val(data.city);
+                    },error:function(){
+                        alert('Upsss los sentimos ocurrio un problema');
+                    }
+                });
+            }
 
         function clearInput(){
             $('#institución_id').val('');

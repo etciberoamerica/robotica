@@ -13,8 +13,8 @@ class CreateStatesTable extends Migration
     public function up()
     {
         Schema::create('states',function(Blueprint $table){
+            $table->integer('id');
             $table->integer('country_id');
-            $table->integer('state_id');
             $table->string('name');
         });
     }

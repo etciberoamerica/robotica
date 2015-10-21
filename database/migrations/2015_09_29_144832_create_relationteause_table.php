@@ -22,6 +22,7 @@ class CreateRelationteauseTable extends Migration
             $table->integer('user_int2_id');
             $table->integer('user_int3_id');
             $table->integer('user_int4_id')->nullable();
+            $table->boolean('active');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,9 +15,24 @@ class TeamController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+
+        $team = $this->pagination($id);
+        return view('team.index',compact('team'));
+    }
+
+    public function pagination($id){
+        $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $url_actual = explode('?',$url_actual);
+        if($id != 0){
+            $pag = Team::where('challenge_id',$id)->orderBy('id','desc')->paginate(env('PAG'));
+        }else{
+            $pag = Team::orderBy('id','desc')->paginate(env('PAG'));
+        }
+
+        $pag->setPath($url_actual[0]);
+        return $pag;
     }
 
     /**

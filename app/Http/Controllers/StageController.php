@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Stage;
 use App\Tool;
+use App\Challenge;
 
 class StageController extends Controller
 {
@@ -18,8 +19,9 @@ class StageController extends Controller
      */
     public function index()
     {
+        $cha = Challenge::listGroup();
         $pag = $this->pagination();
-        return view('stages.index',compact('pag'));
+        return view('stages.index',compact('pag','cha'));
     }
 
     public function pagination(){
@@ -109,4 +111,12 @@ class StageController extends Controller
         $pag = $this->pagination();
         return view('challenge.index',compact('pag'));
     }
+
+    /*
+     * edit
+     * store
+     * show
+     * update
+     * destroy
+     * */
 }

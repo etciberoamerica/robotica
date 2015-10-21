@@ -12,15 +12,12 @@ class CreateTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create('team',function(Blueprint $table){
+        Schema::create('rb_team',function(Blueprint $table){
             $table->increments('id');
             $table->integer('institution_id');
             $table->string('name');
             $table->string('name_altered');
             $table->string('robot_name');
-            $table->integer('country_id');
-            $table->integer('state_id');
-            $table->integer('city_id');
             $table->enum('gender',['MAS','FEM','MIX']);
             $table->integer('challenge_id');
             $table->integer('degree_id');
@@ -35,6 +32,6 @@ class CreateTeamTable extends Migration
      */
     public function down()
     {
-        Schema::drop('team');
+        Schema::drop('rb_team');
     }
 }

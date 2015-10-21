@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Stage;
+use App\Group;
 
-class StageSeeder extends Seeder
+class GroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class StageSeeder extends Seeder
      */
     public function run()
     {
+        factory(Group::class,100)->create();
 
-        factory(Stage::class,40)->create();
     }
 }

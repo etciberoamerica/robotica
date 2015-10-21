@@ -18,6 +18,7 @@ use Request;
 
 class AuthController extends Controller
 {
+    protected $username='username';
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -96,6 +97,11 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+    public function redirectPath()
+    {
+       return route('dashboard');
+    }
+
 
 
 }
