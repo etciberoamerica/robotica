@@ -12,7 +12,7 @@ class CreateRoundTable extends Migration
      */
     public function up()
     {
-        Schema::create('rb_round',function(Blueprint $table){
+        Schema::create('rb_rounds',function(Blueprint $table){
             $table->increments('id');
             $table->integer('team_id');
             $table->integer('challenge_id');
@@ -32,6 +32,6 @@ class CreateRoundTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rb_round');
+        Schema::drop('rb_rounds');
     }
 }

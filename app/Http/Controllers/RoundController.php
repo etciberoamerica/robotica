@@ -23,12 +23,7 @@ class RoundController extends Controller
 
 
     public function stage($data,$dataStage){
-      /*  echo"<pre>";
-        print_r($data);
-        print_r($dataStage);
-        echo"    --------------    ";
-        echo"</pre>";*/
-
+        if(!Round::where('team_id','=',$data['id'])->first()){
             Round::create([
                 'team_id'       =>  $data['id'],
                 'challenge_id'  =>  $data['challenge_id'],
@@ -37,6 +32,7 @@ class RoundController extends Controller
                 'stage_id'      =>  $dataStage['id'],
                 'day'           =>  $data['day']
             ]);
+        }
 
     }
 
@@ -44,178 +40,182 @@ class RoundController extends Controller
     {
         $team =Team::where('challenge_id','=',$id)->orderBy('name','ASC')->get()->toArray();
         $stage= Stage::where('challenge_id','=',$id)->get();
-        $countStage= count($stage);
-        $cha = Challenge::listGroup();
-        $timeStart= env('TIME_START');
-        $date = new DateTime(env('TIME_START'));
-        $time=0;
         $flag=false;
-        $pag = false;
-        $hora_start=$date->format('H:i:s');
-        $i=1;
-        $i2=1;
-        $in=0;
+        $challenge= Challenge::find($id);
+        $challenge_name=$challenge->name;
 
-        foreach($team as $t) {
+        if($id !== 6) {
+            $flag=true;
+            if (!Round::where('challenge_id', '=', $id)->first()) {
+                $countStage = count($stage);
+                $cha = Challenge::listGroup();
+                $timeStart = env('TIME_START');
+                $date = new DateTime(env('TIME_START'));
+                $time = 0;
+                $pag = false;
+                $hora_start = $date->format('H:i:s');
+                $i = 1;
+                $i2 = 1;
+                $in = 0;
+                foreach ($team as $t) {
+                    $arrFlag = [];
+                    $stage = Stage::where('challenge_id', '=', $id)->get()->toArray();
+                    $time = $time + env('TIME');
+                    $hora_end = date('H:i:s', strtotime($date->format('H:i:s') . '+' . $time . ' minute'));
+                    $date_end = new DateTime($hora_end);
+                    $time_dos = env('TIME');
+                    $hora_start = strtotime('-' . $time_dos . ' minute', strtotime($date_end->format('H:i:s')));
+                    $hora_start = date('H:i:s', $hora_start);
+                    $dia = date('Y-m-d ', strtotime($date->format('H:i:s') . '+' . $time . ' minute'));
 
-            $arrFlag= [];
-
-
-            $stage =Stage::where('challenge_id','=',$id)->get()->toArray();
-            $time = $time + env('TIME');
-            $hora_end=date('H:i:s', strtotime($date->format('H:i:s').'+'.$time.' minute'));
-            $date_end = new DateTime($hora_end);
-            $time_dos= env('TIME');
-            $hora_start = strtotime ('-'.$time_dos.' minute' , strtotime ( $date_end->format('H:i:s'))) ;
-            $hora_start = date( 'H:i:s' , $hora_start );
-            echo 'hola inicio '. $hora_start.'  ------- hora fin '.$hora_end.'<br>';
-            $dia=date('Y-m-d ', strtotime($date->format('H:i:s').'+'.$time.' minute'));
-            $arrFlag += ['hour_end' => $hora_end];
-            $arrFlag += ['hour_start'=> $hora_start];
-            $arrFlag += ['day'=>$dia];
-            $arrFlag += ['id'=>$t['id']];
-            $arrFlag += ['institution_id'=>$t['institution_id']];
-            $arrFlag += ['name'=>$t['name']];
-            $arrFlag += ['name_altered'=>$t['name_altered']];
-            $arrFlag += ['robot_name'=>$t['robot_name']];
-            $arrFlag += ['gender'=>$t['gender']];
-            $arrFlag += ['challenge_id'=>$t['challenge_id']];
-            $arrFlag += ['degree_id'=>$t['degree_id']];
-            $arrFlag += ['created_at'=>$t['created_at']];
-            $arrFlag += ['updated_at'=>$t['updated_at']];
-
-            echo"<pre>";
-            print_r($t);
-            print_r($arrFlag);
-            echo"</pre>";
+                    $in++;
 
 
-            $in++;
-            if($i2 == $countStage){
-                $i2= 1;
-            }
-            //$this->stage($arrFlag,$stage[$i2]);
+                    if ($i2 == $countStage+1) {
+                        $i2=0;
+                       /* echo $i2."<br>";
+                        $i2 = 1;
 
-            $i2++;
-         $i++;
-        }
+                        $dataSche =[
+                            'schedule_start' =>$hora_start,
+                            'schedule_end'   =>$hora_end,
+                            'flag'           => 'si',
+                            'increment'      => $i2
+                        ];
 
+                        echo"entra al if<br>";*/
+                        //$this->assignedSchedule($dataSche);
 
+                    }else{
 
+                        $arrFlag += ['hour_end' => $hora_end];
+                        $arrFlag += ['hour_start' => $hora_start];
+                        $arrFlag += ['day' => $dia];
+                        $arrFlag += ['id' => $t['id']];
+                        $arrFlag += ['institution_id' => $t['institution_id']];
+                        $arrFlag += ['name' => $t['name']];
+                        $arrFlag += ['name_altered' => $t['name_altered']];
+                        $arrFlag += ['robot_name' => $t['robot_name']];
+                        $arrFlag += ['gender' => $t['gender']];
+                        $arrFlag += ['challenge_id' => $t['challenge_id']];
+                        $arrFlag += ['degree_id' => $t['degree_id']];
+                        $arrFlag += ['created_at' => $t['created_at']];
+                        $arrFlag += ['updated_at' => $t['updated_at']];
 
-        /*$stage= Stage::where('challenge_id','=',$id)->get();
-        $countStage= count($stage);
-        $i=1;
+                        $dataSche =[
+                            'schedule_start' =>$hora_start,
+                            'schedule_end'   =>$hora_end,
+                            'flag'           => 'no',
+                            'increment'      => $i2
+                        ];
+                        /*print_r($dataSche);
+                        echo $i2." --- ".$countStage.'<br>';*/
 
-        foreach($stage as $s) {
+                        $this->assignedSchedule($dataSche);
 
-            $team =Team::where('challenge_id','=',$id)->orderBy('name','ASC')->get();
+                    }
 
-            $i2=1;
-            foreach($team as $t){
-                echo "el esenario ".$i." el equipo ".$i2."<br>";
-                if($i2 == $countStage){
-                    break;
+                    //$this->stage($arrFlag, $stage[$i2]);
 
+                    $i2++;
+                    $i++;
                 }
-            $i2++;
+                $flag = true;
+
+
             }
-            $i2=$i2;
-            $i++;
+            $pag = $this->pagination($id);
+            //$this->index($id);
+
+
         }
-        $i=0;*/
-
-        /*$data =Team::where('challenge_id','=',$id)->orderBy('name','ASC')->get();
-
-        $i = 1;
-        foreach($data as $d) {
-
-            $stage= Stage::where('challenge_id','=',$d->challenge_id)->get();
-            $i2=1;
-            foreach($stage as $s) {
-
-                echo "el equipo ".$i." en esenario".$i2."<br>";
-
-                $i2++;
-            }
-            $i2=0;
-
-            //$data =Team::where('challenge_id','=',$id)->orderBy('name','ASC')->get();
-
-
-
-
-            $i++;
-
-
-            /*$i = 1;
-            foreach ($stage as $s) {
-                print_r($i);
-                echo "<br>";
-                $i++;
-            }
-            $i = 1;
-        }
-        $i = 1;*/
-
-        /**-------------------------------------------------------------------/
-
-//        $cha = Challenge::listGroup();
-//        $timeStart= env('TIME_START');
-//        $date = new DateTime(env('TIME_START'));
-//        $time=0;
-//        $data =Team::where('challenge_id','=',$id)->orderBy('name','ASC')->get();
-//        echo count($data)."<br>";
-//        $time=0;
-//        $flag=false;
-//        $pag = false;
-//        $hora_start=$date->format('H:i:s');
-//        foreach($data as $d){
-//            $stage= Stage::where('challenge_id','=',$d->challenge_id)->get();
-//
-//            $i=1;
-//            foreach($stage as $s){
-//                print_r($i);
-//                echo"<br>";
-//            $i++;
-//            }
-//            $i=1;
-
-            /*if(!Round::where('team_id',$d->id)->first()){
-
-                $time = $time + env('TIME');
-                $hora=date('H:i:s', strtotime($date->format('H:i:s').'+'.$time.' minute'));
-                $dia=date('Y-m-d ', strtotime($date->format('H:i:s').'+'.$time.' minute'));
-                echo $d->name." toca start ".$hora_start." hora fin".$hora.' el dia '.$dia.'<br>';
-                $roun = Round::create([
-                    'team_id'       =>  $d->id,
-                    'challenge_id'  =>  $id,
-                    'schedule_start'=> $hora_start,
-                    'schedule_final'=>  $hora,
-                    'day'           =>  $dia
-                ]);
-                $hora_start= $hora;
-
-            }else{
-                $flag=true;
-                $pag = $this->pagination($id);
-            }
-        }*/
-
         dd();
-        return view('round.index',compact('flag','pag','cha'));
+        return view('round.index',compact('flag','pag','cha','challenge_name'));
+    }
+
+    public function assignedSchedule(array $data){
+        if($data['flag'] == 'no'){
+
+            $ex_start = explode(':',$data['schedule_start']);
+            $ex_end   = explode(':',$data['schedule_end']);
+            $date = new DateTime($data['schedule_start']);
+            $date_end = new DateTime($data['schedule_end']);
+            $hora_start = date('H:i:s', strtotime($date->format('H:i:s') . '-' . $ex_start[1] . ' minute'));
+            $exEnd =$ex_end[1];
+            $date_end = new DateTime($data['schedule_end']);
+            $time=env('TIME');
+            if($exEnd == $time){
+                $exEnd = $time;
+                $hora_end = date('H:i:s', strtotime($date->format('H:i:s') . '+' . $exEnd . ' minute'));
+            }else{
+
+                $hora_end1 = date('H:i:s', strtotime($date_end->format('H:i:s') . '-' . $exEnd . ' minute'));
+                $date_end = new DateTime($hora_end1);
+                $hora_end = date('H:i:s', strtotime($date_end->format('H:i:s') . '+' . $time . ' minute'));
+            }
+
+        }else{
+
+            echo"else   ";
+            $hora_start =$data['schedule_start'];
+            $hora_end =$data['schedule_end'];
+
+        }
+
+        /*return $dataSche =[
+            'schedule_start' =>$hora_start,
+            'schedule_end'   =>$hora_end];*/
+
+
+        echo"hora inicio ".$hora_start."  hora fin ".$hora_end." en escenario ".$data['increment']."<br>";
+
+
     }
 
     public function pagination($id){
         $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         $url_actual = explode('?',$url_actual);
         $pag = Round::
-            join('rb_team as te','te.id','=','rb_round.team_id')->
-        where('rb_round.challenge_id','=',$id)->
-        where('rb_round.active','=',1)->
-                select('te.name','te.robot_name','rb_round.*')->orderBy('rb_round.id','ASC')->paginate(env('PAG'));
+        join('rb_team as te','te.id','=','rb_rounds.team_id')->
+        join('rb_stages as st','st.id','=','rb_rounds.stage_id')->
+        where('rb_rounds.challenge_id','=',$id)->
+        select('te.name as teamName','te.robot_name','rb_rounds.*','st.name as stageName')->
+        orderBy('rb_rounds.id','ASC')->
+        paginate(env('PAG'));
         $pag->setPath($url_actual[0]);
         return $pag;
+    }
+
+
+    public function modification(Request $request){
+        if($request->type == 1){
+            $dataRound = Round::where('challenge_id','=',$request->challenge_id)->orderBy('id','DESC')->first();
+            $date = new DateTime($dataRound->schedule_end);
+            $hora_end = date('H:i:s', strtotime($date->format('H:i:s') . '+' . env('TIME') . ' minute'));
+            $date_end = new DateTime($hora_end);
+            $time_dos = env('TIME');
+            $hora_start = strtotime('-' . $time_dos . ' minute', strtotime($date_end->format('H:i:s')));
+            $hora_start = date('H:i:s', $hora_start);
+            $dia = date('Y-m-d ', strtotime($date->format('H:i:s') . '+' . env('TIME') . ' minute'));
+
+            Round::create([
+                'team_id'       =>  $dataRound->id,
+                'challenge_id'  =>  $dataRound->challenge_id,
+                'schedule_start'=>  $hora_start,
+                'schedule_end'  =>  $hora_end,
+                'stage_id'      =>  $dataRound->stage_id,
+                'day'           =>  $dia
+            ]);
+
+
+
+
+        }else{
+            $Round = Round::find($request->round_id);
+            $Round->active=0;
+            $Round->save();
+        }
+
     }
 
 

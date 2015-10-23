@@ -44,6 +44,19 @@
                               
                             </ul>
                         </li>
+                        <li class="dropdown-submenu">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Generación de rondas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 1]) !!}">Sumo robotizado NXT</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 2]) !!}">Sumo robotizado EV3</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 3]) !!}">Futbol robotizado NXT</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 4]) !!}">Futbol robotizado EV3</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 5]) !!}">Blockrise</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 7]) !!}">Taekwondo robotizado</a></li>
+                                <li><a href="{!! route('dashboard/generator/round',['id'=> 8]) !!}">Carrera de obstaculos</a></li>
+                            </ul>
+
+                        </li>
                         <li><a href="{!! route('dashboard/settings') !!}">Configuración</a></li>
                     </ul>
                 </li>

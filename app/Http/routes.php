@@ -80,11 +80,15 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('dashboard/settings',['as'=>'dashboard/settings','uses'=>'SettingsController@index']);
 
     Route::get('dashboard/round/{id}',['as'=>'dashboard/settings','uses'=>'RoundController@index']);
+    Route::get('dashboard/generator/round/{id}',['as'=>'dashboard/generator/round','uses'=>'RoundController@index']);
 
+    Route::get('dashboard/generator/round/{id}/modification',['as'=>'dashboard/generator/round/{id}/modification','uses'=>'RoundController@modification']);
 
 });
 
-
+/*
+ * 'RoundController@modification'
+ * */
 
 //Route::get('dashboard/team/{$id}',['as' => 'dashboard/team','uses' =>'TeamController@index']);
 
