@@ -127,12 +127,9 @@ class UserController extends Controller
          * ["Género"]=> string(3) "MAS" ["Reto"]=> string(1) "1" ["Grado"]=> string(1) "1" }
          */
         $validator = Validator::make($data,[
-            "Institución" => "required|valid_team:".implode(",", $dat_v),
+//            "Institución" => "required|valid_team:".implode(",", $dat_v),
             "Nombre_del_equipo" => "required|name_team",
             "Nombre_del_robot" => "required|alpha_space",
-            "País" => "required",
-            "Estado" => "required",
-            "Ciudad" => "required",
             "Tipo" => "required",
             "Reto" => "required",
             "Grado" => "required"
@@ -162,7 +159,7 @@ class UserController extends Controller
             "Nombre" => "required|alpha_space",
             "Apellido_Paterno" => "required|alpha",
             "Apellido_Materno" => "required|alpha",
-            "Correo" => "required|email|unique:users,email",
+            "Correo" => "required|email|unique:rb_users,email",
             "Correo_confirmación" => "required|email|same:Correo",
             "Correo_alterno"=>"required|email",
             "Nombre_Coach_auxiliar" => "required|alpha_space",
@@ -197,10 +194,7 @@ class UserController extends Controller
             "Institución" => "required",
             "Nombre_del_equipo" => "required|name_team",
             "Nombre_del_robot" => "required|alpha_space",
-            "País" => "required",
-            "Estado" => "required",
-            "Ciudad" => "required",
-            "Género" => "required",
+            "Tipo" => "required",
             "Reto" => "required",
             "Grado" => "required"
         ]);
@@ -208,7 +202,7 @@ class UserController extends Controller
             "Nombre" => "required|alpha_space",
             "Apellido_Paterno" => "required|alpha",
             "Apellido_Materno" => "required|alpha",
-            "Correo" => "required|email|unique:users,email",
+            "Correo" => "required|email|unique:rb_users,email",
             "Correo_confirmación" => "required|email|same:Correo",
             "Correo_alterno"=>"required|email",
             "Nombre_Coach_auxiliar" => "required|alpha_space",
@@ -253,10 +247,7 @@ class UserController extends Controller
                 'name'              =>$dataOne['Nombre_del_equipo'],
                 'name_altered'      =>Tool::getName($dataOne['Nombre_del_equipo']),
                 'robot_name'        =>$dataOne['Nombre_del_robot'],
-                'country_id'        =>$dataOne['País'],
-                'state_id'          =>$dataOne['Estado'],
-                'city_id'           =>$dataOne['Ciudad'],
-                'gender'            =>$dataOne['Género'],
+                'gender'            =>$dataOne['Tipo'],
                 'challenge_id'      =>$dataOne['Reto'],
                 'degree_id'         =>$dataOne['Grado'],
             ]);

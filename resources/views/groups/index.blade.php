@@ -9,13 +9,22 @@
                         Nuevo Grupo
                     </button>
                 </p>
-                <h4>Gupos  registrados</h4>
+
+                @if(!empty($datArray))
+                    <div class="alert alert-danger" role="alert">
+                        <div>
+                            {!! $datArray['message'] !!}
+                        </div>
+                    </div>
+                @endif
+                <h4>Gupos registrados del reto {!! $name_challenge !!}</h4>
                 <div class="table-responsive">
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Reto</th>
+                                <th>Escenario</th>
                                 <th>Activo</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -24,8 +33,10 @@
                         <tbody>
                             @foreach($pag as $p)
                                 <tr>
+
                                     <td>{!! $p->name !!}</td>
                                     <td>{!! $p->name_cha !!}</td>
+                                    <td>{!! $p->name_sta !!}</td>
                                     <td>
                                         @if ($p->active)
                                             <span class='glyphicon glyphicon-ok' style="color: green;"></span>
@@ -65,22 +76,28 @@
     </div>
 
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="margin: 30px auto;width: 1000px;">
             <div class="modal-content">
+
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                     <h4 class="modal-title custom_align" id="Heading">Datos <span id="name_institution"></span></h4>
                 </div>
-                {!! Form::open(['route' => 'stage/add', 'class' => 'form','id'=>'form-group']) !!}
+                <div id="errores" class="alert alert-danger none">
+                </div>
+                {!! Form::open(['route' => 'stage/add', 'class' => 'form','id'=>'form-group','autocomplete'=>'off']) !!}
                 <div class="modal-body">
                     {!! Form::hidden('id','',['id'=>'identificador','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     <div class="form-group">
-                        <span class="required">*</span> {!! Form::label('nombre','Nombre') !!}:
+                        <span class="required">*</span> {!! Form::label('nombre','Nombre:') !!}
                         {!! Form::text('Nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('reto','Reto') !!}:
-                        {!!  Form::select('Reto', $cha , '' ,['id'=>'reto_id','class' => 'form-control']) !!}
+                     <span class="required">*</span>   {!! Form::label('escenario','Escenario :') !!}
+                        {!! Form::select('escenario',$stage,'',['class'=>'form-control','id'=>'escenario_id']) !!}
+
+                        {!! Form::hidden('Reto',$cha,['id'=>'identificador','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('estatus','Estatus') !!}:
@@ -122,6 +139,7 @@
 
     <script>
         $(document).ready(function(){
+
             $('#btn').click(function(){
                 $('#identificador').val('');
                 $('#nombre_id').val('');
@@ -147,23 +165,51 @@
                 }
             });
             $('#btn-submit').click(function(){
+                var pathname = window.location.pathname;
+                var str = pathname.split("/");
+                var temp = new Array();
+                temp = x = pathname.split("/");
                 $.ajax({
-                    url:'groups/add',
+                    url:'add/'+temp[str.length - 1],
                     method:'GET',
                     data :$('#form-group').serialize()
                 }).done(function(data){
-                    location.reload();
+                    if(!data.success){
+                        $('#errores').removeClass('none');
+                        var html="";
+                        html +="<ul>";
+                        $.each(data.errors,function($i,$e){
+                            html +="<li>";
+                            html +=$e;
+                            html +="</li>";
+                        });
+                        html +="<ul>";
+                        $('#errores').empty();
+                        $('#errores').html(html);
+                    }
+                    else{
+                        $('#errores').empty();
+                        $('#errores').addClass('none');
+                        location.reload(true);
+                    }
+                    //location.reload();
                 }).fail(function(){
                     alert('Upss lo sentimos surgio un error intenat mas tarde');
                 });
             });
             $('#btn-yes').click(function(){
+                var pathname = window.location.pathname;
+                var str = pathname.split("/");
+                var temp = new Array();
+                temp = x = pathname.split("/");
                 $.ajax({
-                    url:'groups/delete',
+                    url:'delete/'+temp[str.length - 1],
                     method:'GET',
                     data :{id: $('#identificador-de').val()}
                 }).done(function(data){
-                    location.reload();
+                    if(data.success){
+                        location.reload();
+                    }
                 }).fail(function(){
                     alert('Upss lo sentimos surgio un error intenat mas tarde');
                 });
@@ -173,8 +219,12 @@
         });
 
         function edit(id){
+            var pathname = window.location.pathname;
+            var str = pathname.split("/");
+            var temp = new Array();
+            temp = x = pathname.split("/");
             $.ajax({
-                url:'groups/find',
+                url:'find/'+temp[str.length - 1],
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
@@ -188,8 +238,12 @@
             });
         }
         function delet(id){
+            var pathname = window.location.pathname;
+            var str = pathname.split("/");
+            var temp = new Array();
+            temp = x = pathname.split("/");
             $.ajax({
-                url:'groups/find',
+                url:'find/'+temp[str.length - 1],
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){

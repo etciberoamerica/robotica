@@ -18,5 +18,6 @@ class Team extends Model
         'gender',
         'challenge_id',
         'degree_id',
+        'active'
     ];
 }

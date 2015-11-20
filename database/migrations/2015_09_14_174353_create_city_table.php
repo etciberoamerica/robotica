@@ -12,7 +12,7 @@ class CreateCityTable extends Migration
      */
     public function up()
     {
-        Schema::create('city',function(Blueprint $table){
+        Schema::create('rb_city',function(Blueprint $table){
             $table->integer('id');
             $table->integer('country_id');
             $table->integer('state_id');
@@ -27,6 +27,6 @@ class CreateCityTable extends Migration
      */
     public function down()
     {
-        Schema::drop('city');
+        Schema::drop('rb_city');
     }
 }

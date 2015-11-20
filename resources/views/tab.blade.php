@@ -154,7 +154,7 @@
                                     {!! Form::text('Apellido Materno Coach auxiliar','',['class'=>'form-control','id'=>'apellido_materno_aux_id']) !!}
                                 </div>
                                 <div class="form-group">
-                                    *{!! Form::label('coordinado','El coordinador es igual que el Coach auxiliar?') !!}
+                                    *{!! Form::label('coordinado','El coordinador es el coach auxiliar?') !!}
                                     Si{!! Form::radio('Cordinador', 'S',true) !!}
                                     No{!! Form::radio('Cordinador', 'N',false) !!}
                                 </div>
@@ -366,7 +366,7 @@
                                 clearInput();
                                 setTimeout(function() {
                                     location.reload(true);
-                                    },5000);
+                            },5000);
 
                             }else{
                                 error =data.errors;

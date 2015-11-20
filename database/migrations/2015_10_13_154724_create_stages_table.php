@@ -16,6 +16,7 @@ class CreateStagesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('challenge_id');
+            $table->boolean('back');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

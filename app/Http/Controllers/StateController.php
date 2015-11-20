@@ -90,7 +90,7 @@ class StateController extends Controller
     public function getList(Request $request){
         $data =[];
         $data +=[0=>'-- Selecciona Estado --'];
-        $data +=State::where('country_id',$request->country_id)->lists('name','state_id')->toArray();
+        $data +=State::where('country_id',$request->country_id)->lists('name','id')->toArray();
     return $data;
 
     }

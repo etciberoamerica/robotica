@@ -1,10 +1,7 @@
 @extends('layouts/default-admin')
-
 @section('section')
     <div class="container">
         <div class="row">
-
-
             <div class="col-md-12">
                 <br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
@@ -14,26 +11,16 @@
                 </p>
                 <h4>Instituciones registradas</h4>
                 <div class="table-responsive">
-
-
-
-
                     <table id="mytable" class="table table-bordred table-striped">
-
                         <thead>
-
-
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Address</th>
-                        <th>Email</th>
-
-                        <th>Edit</th>
-
-                        <th>Delete</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </thead>
                         <tbody>
-
                         @foreach($insti as $in)
                             <tr>
                                 <td>{!! $in->id !!} </td>
@@ -58,21 +45,14 @@
                         @endforeach
                         </tbody>
                     </table>
-
                     <div class="clearfix"></div>
                     <ul class="pagination pull-right">
                         {!! $insti->render() !!}
                     </ul>
-
-
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -231,14 +211,11 @@
                 if(idn == 'btn-e'){
                     var id = $(this).attr('data-id');
                     $(this).unbind().bind('click',function(){
-                        console.log(id);
                         edit(id);
                     });
-
                 }else if(idn == 'btn-d'){
                     var id = $(this).attr('data-id');
                     $(this).unbind().bind('click',function(){
-                        console.log(id);
                         delet(id);
                     });
                 }
@@ -255,11 +232,15 @@
                 $('#institution_id').val(data.id);
                 $('#nombre_id').val(data.name)
                 $('#genero_id > option[value='+data.gender+']').attr('selected', 'selected');
+                $('#pais_id > option[value='+data.country_id+']').attr('selected', 'selected');
+                $('#pais_id').trigger('change');
+                $('#estado_id > option[value='+data.state_id+']').attr('selected', 'selected');
+                $('#estado_id').trigger('change');
+                $('#ciudad_id > option[value='+data.city_id+']').attr('selected', 'selected');
                 $('#estatus_id > option[value='+data.active+']').attr('selected', 'selected');
             }).fail(function(){
                 alert('Upss lo sentimos surgio un error intenat mas tarde');
             });
-
         }
 
         function delet(id){

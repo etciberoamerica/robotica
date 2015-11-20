@@ -10,7 +10,10 @@ class Challenge extends Model
     protected  $table='rb_challenges';
     protected $fillable = [
         'name',
-        'active'
+        'active',
+        'duration',
+        'schedumal',
+        'free_time',
     ];
 
     public static function listGroup(){

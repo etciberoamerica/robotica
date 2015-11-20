@@ -6,6 +6,7 @@
                 @if($flag && $pag)
                     <br><br><br><br>
                     <h4>Ronda de pruebas generada del reto {!! $challenge_name !!} .</h4>
+                    <a href="{!! route('dashboard/generator/roud/excel',['id' => $id])  !!}">Excell</a>
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
                         <th>Nombre equipo</th>
@@ -13,7 +14,6 @@
                         <th>Escenario</th>
                         <th>Hora inicio</th>
                         <th>Hora fin</th>
-                        <th>Día</th>
                         <th>Activo</th>
                         <th>Ajustar</th>
                         <th>Cancelar</th>
@@ -37,9 +37,6 @@
                                     {!! $p->schedule_end !!}
                                 </td>
                                 <td>
-                                    {!! $p->day !!}
-                                </td>
-                                <td>
                                     @if ($p->active)
                                         <span class='glyphicon glyphicon-ok' style="color: green;"></span>
                                     @else
@@ -48,10 +45,19 @@
                                 </td>
                                 </td>
                                 <td>
-                                    <a type="button" data-type="adjust" data-id='{!! $p->id !!}' class="btn btn-success btn-circle update"><i class="glyphicon glyphicon-dashboard"></i></a>
+                                    @if ($p->active)
+                                        <a type="button" data-type="adjust" data-id='{!! $p->id !!}' class="btn btn-success btn-circle update"><i class="glyphicon glyphicon-dashboard"></i></a>
+                                    @else
+                                        <a type="button" data-type="adjust" data-id='{!! $p->id !!}' class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-dashboard"></i></a>
+
+                                    @endif
                                 </td>
                                 <td>
-                                    <a type="button" data-type="cancel" data-id='{!! $p->id !!}' class="btn btn-danger btn-circle update"><i class="glyphicon glyphicon-minus"></i></a>
+                                    @if ($p->active)
+                                        <a type="button" data-type="cancel" data-id='{!! $p->id !!}' class="btn btn-danger btn-circle update"><i class="glyphicon glyphicon-minus"></i></a>
+                                    @else
+                                        <a type="button" data-type="active" data-id='{!! $p->id !!}' class="btn btn-success btn-circle update"><i class="glyphicon glyphicon-ok"></i></a>
+                                    @endif
                                 </td>
                             </tr>
 
@@ -73,6 +79,8 @@
                                 var temp = new Array();
                                 temp = x = pathname.split("/");
                                 var type = $(this).attr('data-type');
+                               /* console.log(type);
+                                return false;*/
                                 if(type == 'adjust'){
                                     $.ajax({
                                         url:temp[str.length - 1]+'/modification',
@@ -83,8 +91,7 @@
                                         },
                                         type: 'GET',
                                         success:function(data){
-                                            console.log(data);
-
+                                            location.reload();
                                         },error:function(){
                                             alert('Upsss los sentimos ocurrio un problema');
                                         }
@@ -96,12 +103,12 @@
                                         data:{
                                             round_id : $(this).attr('data-id'),
                                             type:0,
+                                            typeText:type,
                                             challenge_id:temp[str.length - 1]
                                         },
                                         type: 'GET',
                                         success:function(data){
-
-
+                                            location.reload();
                                         },error:function(){
                                             alert('Upsss los sentimos ocurrio un problema');
                                         }

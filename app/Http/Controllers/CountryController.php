@@ -19,11 +19,9 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        //dd($request->country_id);
         $country =  Country::find($request->country_id);
         $city    =  City::find($request->city_id);
         $state   =  State::find($request->state_id);
-
         return [
             'country' =>$country->name,
             'city'    => $city->name,

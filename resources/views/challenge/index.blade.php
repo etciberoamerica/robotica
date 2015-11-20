@@ -75,6 +75,19 @@
                         <span class="required">*</span> {!! Form::label('nombre','Nombre') !!}:
                         {!! Form::text('Nombre','',['id'=>'nombre_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                     </div>
+                    <div clas="form-group">
+                        <span class="required">*</span> {!! Form::label('hora_','Hora inicio') !!}:
+                        {!! Form::text('Hora_inicio','',['id'=>'id_hora_inicio','class'=>'form-control','placeholder'=>'HH:mm:ss']) !!}
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span> {!! Form::label('duracion','Duraciòn reto') !!}
+                        {!! Form::text('Duración_reto','',['id'=>'id_duracion_reto','class'=>'form-control','placeholder'=>'mm']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        <span class="required">*</span> {!! Form::label('duracion','Tiempo libre') !!}
+                        {!! Form::text('tiempo_libre','',['id'=>'id_tiempo_libre','class'=>'form-control','placeholder'=>'mm']) !!}
+                    </div>
 
                     <div class="form-group">
                          {!! Form::label('estatus','Estatus') !!}:
@@ -169,6 +182,9 @@
                 method:'GET',
                 data :{ id:id}
             }).done(function(data){
+                $('#id_hora_inicio').val(data.schedumal);
+                $('#id_duracion_reto').val(data.duration);
+                $('#id_tiempo_libre').val(data.free_time);
                 $('#identificador').val(data.id);
                 $('#nombre_id').val(data.name);
                 $('#name_institution').html(data.name);

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call(StageSeeder::class);
         $this->call(InstitutionSeeder::class);
         $this->call(StateSeeder::class);
         $this->call(CountrySeeder::class);
@@ -22,10 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RelationrodeSeeder::class);
         $this->call(ChallengeSeeder::class);
         $this->call(RoleSeeder::class);
-        $this->call(StageSeeder::class);
         $this->call(GroupSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TeamSeeder::class);
+        $this->call(SettingsSeeder::class);
         Model::reguard();
     }
 }

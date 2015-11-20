@@ -42,10 +42,17 @@ class ChallengeController extends Controller
             $chan = Challenge::find($data['id']);
             $chan->name     =   $data['Nombre'];
             $chan->active   =   $data['Estatus'];
+            $chan->duration  =   $data['Duración_reto'];
+            $chan->schedumal =   $data['Hora_inicio'];
+            $chan->free_time =   $data['tiempo_libre'];
             $chan->save();
         }else{
             Challenge::create([
                 'name'      => $data['Nombre'],
+                'duration'  => $data['Duración_reto'],
+                'schedumal' => $data['Hora_inicio'],
+                'free_time' => $data['tiempo_libre']
+
             ]);
         }
         $pag = $this->pagination();

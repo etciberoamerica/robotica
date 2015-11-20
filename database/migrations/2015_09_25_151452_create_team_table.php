@@ -21,6 +21,7 @@ class CreateTeamTable extends Migration
             $table->enum('gender',['MAS','FEM','MIX']);
             $table->integer('challenge_id');
             $table->integer('degree_id');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

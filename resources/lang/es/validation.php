@@ -12,6 +12,8 @@ return [
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
+    "valid_minute"     => "Los :attribute no son correctos ejemplp mm",
+    "valid_time"       => "La :attribute no es correcta rectifica ejemplo HH:mm:ss",
     "valid_team_mix"   => "El equipo, institución registrado en un reto mixto",
     "valid_team"       => "El equipo, institución registrado en un reto mixto",
     "name_team"        => "El :attribute ya existe",

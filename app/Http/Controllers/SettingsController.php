@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Validator;
 
 use App\Settings;
+use App\Tool;
+use DB;
 
 class SettingsController extends Controller
 {
@@ -19,8 +21,10 @@ class SettingsController extends Controller
      */
     public function index()
     {
+        $chedumalTrial=Settings::where('field','=','Schedumal_trial')->first();
+        $durationTrial = Settings::where('field','=','Duration_trial')->first();
 
-        return view('settings/index');
+        return view('settings/index',compact('chedumalTrial','durationTrial'));
     }
 
     /**
@@ -28,9 +32,37 @@ class SettingsController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = Tool::removeSpace($request->all());
+
+        $validator = Validator::make($data,[
+            "hora_prueba" => "required|valid_time",
+            "duración_prueba" => "required|valid_minute"
+        ]);
+
+        $toArray=$validator->errors()->toArray();
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+        $chedumalTrial=Settings::where('field','=','Schedumal_trial')->first();
+        $durationTrial = Settings::where('field','=','Duration_trial')->first();
+        if($chedumalTrial->value != $data['hora_prueba']){
+
+            DB::table('rb_settings')
+                ->where('field', 'Schedumal_trial')
+                ->update(['value' => $data['hora_prueba']]);
+
+        }
+
+        if($durationTrial->value != $data['duración_prueba']){
+            DB::table('rb_settings')
+                ->where('field', 'Duration_trial')
+                ->update(['value' => $data['duración_prueba']]);
+        }
+
+        return $this->index();
     }
 
     /**

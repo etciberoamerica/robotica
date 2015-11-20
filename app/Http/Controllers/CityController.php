@@ -89,8 +89,8 @@ class CityController extends Controller
 
     public function getlist(Request $request){
         $data= [];
-        $data += [0 => '-- Selecciona ciudad --'];
-        $data += City::where('state_id',$request->city_id)->lists('name','city_id')->toArray();
+        $data += ["" => '-- Selecciona ciudad --'];
+        $data += City::where('state_id',$request->city_id)->lists('name','id')->toArray();
         return $data;
     }
 }

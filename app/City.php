@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $table='city';
+    protected $table='rb_city';
     public $timestamps = false;
 }

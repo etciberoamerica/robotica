@@ -107,17 +107,44 @@ class AppServiceProvider extends ServiceProvider
 
 
                 foreach($dataGender as $d){
-                    print_r($d->gender);
+                   // print_r($d->gender);
 
                 }
 
 
                 Team::where('institution_id','=',$value)->where('challenge_id','=',$parameters[1])->where('gender','=',$parameters[1])->first();
             }else{
-                dd('no entra');
-            }
-            dd();
 
+            }
+
+
+        });
+
+        Validator::extend('valid_time',function($attribute, $value, $parameters){
+            $explode= explode(':',$value);
+            if(count($explode) != 3){
+                return false;
+            }else{
+                if(!is_numeric($explode[0])){
+                    return false;
+                }elseif(!is_numeric($explode[1])){
+                    return false;
+                }elseif(!is_numeric($explode[2])){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        });
+
+        Validator::extend('valid_minute',function($attribute, $value, $parameters){
+
+            if(!is_numeric($value)){
+                return false;
+            }else{
+                return true;
+            }
         });
     }
 

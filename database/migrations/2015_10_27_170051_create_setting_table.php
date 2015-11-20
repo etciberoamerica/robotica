@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatesTable extends Migration
+class CreateSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rb_states',function(Blueprint $table){
-            $table->integer('id');
-            $table->integer('country_id');
-            $table->string('name');
+        Schema::create('rb_settings',function(Blueprint $table){
+                $table->string('field')->unique();
+                $table->string('value');
+
         });
     }
 
@@ -26,6 +26,6 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rb_states');
+        Schema::drop('rb_settings');
     }
 }

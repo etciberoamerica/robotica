@@ -15,6 +15,9 @@ class CreateChallengeTable extends Migration
         Schema::create('rb_challenges',function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
+            $table->string('duration');
+            $table->string('schedumal');
+            $table->string('free_time');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
