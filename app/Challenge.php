@@ -14,6 +14,7 @@ class Challenge extends Model
         'duration',
         'schedumal',
         'free_time',
+        'challenge_duration'
     ];
 
     public static function listGroup(){

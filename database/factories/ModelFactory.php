@@ -15,18 +15,18 @@ use App\Institution;
 use App\Degree;
 use App\Stage;
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+/*$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
-});
+});*/
 
 
 
-$factory->define(App\Institution::class, function (Faker\Generator $faker) {
+/*$factory->define(App\Institution::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\en_US\Address($faker));
     return [
         'name'          => 'Instituto '.$faker->country,
@@ -46,7 +46,7 @@ $factory->define(App\Institution::class, function (Faker\Generator $faker) {
             37, 29, 28, 57, 65, 6, 70, 12, 31, 97, 60, 30, 42, 71, 80, 69, 96, 61, 32, 85, 8, 91, 17, 21, 92, 43, 14, 81, 19, 102, 99, 48, 63, 55, 23, 45, 76, 1, 33, 53,62, 47, 25, 18, 89, 56, 66, 46, 24, 49, 75, 10, 104, 58, 22, 73, 94, 16, 98, 79, 3, 56, 32, 50, 7, 27, 26, 41, 22, 29, 14, 39, 51, 6, 5, 37, 13, 17, 57, 12, 8, 36, 16, 25, 24, 53, 35, 52, 38, 54, 10, 42, 40, 49, 9, 21, 20, 31, 43, 55, 46, 15, 19, 44, 18, 48, 30,3, 45, 4, 47, 58, 11, 28, 34, 2, 1, 23, 33, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 130, 10, 18, 3, 141, 142, 143, 144, 145, 82, 19, 44, 107, 146, 73, 18, 53, 2, 19, 147, 148, 149, 150, 20, 21, 151, 152, 22, 23, 24, 153, 213, 571, 218, 219, 19, 20, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 25, 21, 19, 220, 221, 61,26, 214, 154, 155, 27, 59, 74, 115, 28, 156,29, 30, 2, 157, 158, 159, 12, 160, 161, 162, 45, 31, 11, 11, 85, 60, 571, 12, 116, 127, 68, 69, 54, 20, 32, 222, 34, 55, 6, 46, 33, 163, 34, 56, 164, 35, 61, 128, 165, 13, 21, 10, 36, 129, 47, 37, 130, 38, 131, 595, 39, 223, 596,597, 598, 599
         ]),
     ];
-});
+});*/
 
 
 $factory->define(App\Stage::class, function(Faker\Generator $faker){

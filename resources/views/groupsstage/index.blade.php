@@ -44,8 +44,6 @@
         </div>
     <div>
 
-
-
         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -57,7 +55,7 @@
                     </div>
                     {!! Form::open(['route' => 'stage/add', 'class' => 'form','id'=>'form-group']) !!}
                     <div class="modal-body">
-                        {!! Form::text('id','',['id'=>'round_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
+                        {!! Form::hidden('id','',['id'=>'round_id','class'=>'form-control','placeholder'=>'Nombre']) !!}
                         <div class="form-group">
                             {!! Form::label('reto','Grupo') !!}:
                             {!!  Form::select('Grupo', $dataG , '' ,['id'=>'grupo_id','class' => 'form-control']) !!}

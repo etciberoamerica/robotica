@@ -15,7 +15,8 @@
         "phpspec/phpspec": "~2.1",
         "laravelcollective/html": "5.1.*",
         "barryvdh/laravel-debugbar": "2.0.*",
-        "maatwebsite/excel": "~2.0.0"
+        "maatwebsite/excel": "~2.0.0",
+        "elibyy/laravel-tcpdf": "0.*"
     },
     "autoload": {
         "classmap": [

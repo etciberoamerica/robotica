@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use  Log;
 
 class RedirectIfAuthenticated
 {
@@ -36,7 +37,42 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/dashboard');
+
+            $rol_id = Auth::user()->role_id;
+
+            switch($rol_id){
+                case 1:
+                    return redirect('/dashboard');
+                    break;
+                case 2:
+                    return redirect('/profile');
+                    break;
+                case 3:
+                    return redirect('/profile');
+                    break;
+                case 4:
+                    return redirect('/profile');
+                    break;
+                case 5:
+                    return redirect('/profile');
+                    break;
+                case 6:
+                    return redirect('/profile');
+                    break;
+                case 7:
+                    return redirect('/profile');
+                    break;
+                case 8:
+                    return redirect('/profile');
+                    break;
+                case 9:
+                    return redirect('/profile/referee');
+                    break;
+            }
+
+
+
+
         }
 
         return $next($request);

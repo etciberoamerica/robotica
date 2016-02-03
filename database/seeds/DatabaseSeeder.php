@@ -14,19 +14,33 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(StageSeeder::class);
+
+        $this->call(ChallengeSeeder::class);
         $this->call(InstitutionSeeder::class);
         $this->call(StateSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(DegreeSeeder::class);
         $this->call(RootSeeder::class);
+        $this->call(StageSeeder::class);
         $this->call(RelationrodeSeeder::class);
-        $this->call(ChallengeSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(TeamSeeder::class);
         $this->call(GroupSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(TeamSeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(RelationTeamUseSeeder::class);
+        $this->call(RondaPruebasSeeder::class);
+        $this->call(RondaGrupoSeeder::class);
+        $this->call(CombatSeeder::class);
+        $this->call(CombatTimeSeeder::class);
+        $this->call(SumoCombatSeeder::class);
+        $this->call(BlockSeeder::class);
+
+
+
+
+
+
         Model::reguard();
     }
 }

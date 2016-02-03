@@ -16,6 +16,7 @@ class CreateChallengeTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('duration');
+            $table->string('challenge_duration');
             $table->string('schedumal');
             $table->string('free_time');
             $table->boolean('active')->default(1);

@@ -40,5 +40,11 @@ class RoleSeeder extends Seeder
             'name'=>'Integrante cuatro'
         ]);
 
+        Role::create([
+            'name'=>'Árbitro'
+        ]);
+
+
+
     }
 }

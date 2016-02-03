@@ -22,6 +22,8 @@ class CreateCombatRoundTable extends Migration
             $table->time('schedule_start');
             $table->time('schedule_end');
             $table->boolean('actived')->default(1);
+            $table->boolean('completed')->default(0);
+            $table->boolean('evaluation')->default(0);
             $table->timestamps();
         });
     }

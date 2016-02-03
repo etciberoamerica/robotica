@@ -12,7 +12,7 @@ class CreateRelationteauseTable extends Migration
      */
     public function up()
     {
-        Schema::create('relation_te_us',function(Blueprint $table){
+        Schema::create('rb_relation_te_us',function(Blueprint $table){
             $table->increments('id');
             $table->integer('team_id');
             $table->integer('user_coach_id');
@@ -22,7 +22,7 @@ class CreateRelationteauseTable extends Migration
             $table->integer('user_int2_id');
             $table->integer('user_int3_id');
             $table->integer('user_int4_id')->nullable();
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateRelationteauseTable extends Migration
      */
     public function down()
     {
-        Schema::drop('relation_te_us');
+        Schema::drop('rb_relation_te_us');
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RelationTeUs extends Model
 {
-    protected  $table='relation_te_us';
+    protected  $table='rb_relation_te_us';
 
     protected $fillable = [
             'team_id',

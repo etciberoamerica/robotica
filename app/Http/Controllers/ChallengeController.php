@@ -126,4 +126,10 @@ class ChallengeController extends Controller
         return $data;
 
     }
+    public static function sumo(){
+
+
+
+        return view('challenge.sumo');
+    }
 }

@@ -55,10 +55,11 @@ class GroupstaController extends Controller
      *
      * @return Response
      */
-    public function index($id,array $data=['y'=>0])
+    public static function index($id,array $data=['y'=>0])
     {
 
         $challenge= Challenge::find($id);
+
         $challenge_name=$challenge->name;
         $group= Group::where('challenge_id','=',$id)->get()->toArray();
         $teamRound =Round::where('challenge_id','=',$id)->orderBy('team_id','DESC')->get()->toArray();
@@ -76,20 +77,20 @@ class GroupstaController extends Controller
                 ]);
             }
             if($i == $countGroup - 1){
-                $this->index($id,$data=['y'=>$i+1]);
+                GroupstaController::index($id,$data=['y'=>$i+1]);
                 break;
             }
 
         $p++;
         }
-        $data= $this->pagination($id);
-        $dataG= [];
-        $dataG +=[''=>'-- Seleciona Grupo --'];
-        $datagro = Group::where('challenge_id','=',$id)->lists('name','id')->toArray();
-        $dataG += $datagro;
-
-
-        return view('groupsstage.index',compact('data','challenge_name','dataG'));
+        if(!ENV('DEVELOP')){
+            $data= GroupstaController::pagination($id);
+            $dataG= [];
+            $dataG +=[''=>'-- Seleciona Grupo --'];
+            $datagro = Group::where('challenge_id','=',$id)->lists('name','id')->toArray();
+            $dataG += $datagro;
+            return view('groupsstage.index',compact('data','challenge_name','dataG'));
+        }
     }
 
     public static function pagination($id){

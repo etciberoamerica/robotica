@@ -70,14 +70,55 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('dashboard/fighting/{id}/time',['as'=>'dashboard/fighting/move','uses'=>'CombatRoundController@getTime']);
     Route::get('dashboard/fighting/{id}/serializa',['as'=>'dashboard/fighting/serializa','uses'=>'CombatRoundController@getSeri']);
 
+    Route::get('dashboard/list/user',['as'=>'list_user','uses'=>'UserController@getUser']);
+    Route::get('dashboard/list/add',['as'=>'dashboard/list/add','uses'=>'UserController@createUser']);
+    Route::get('dashboard/list/challenge/stage',['as'=>'dashboard/list/challenge/stage','uses'=>'UserController@getStage']);
+
+    Route::get('dashboard/referee',['as'=>'referee','uses'=>'UserController@getReferee']);
+    Route::get('dashboard/referee/edit',['as'=>'dashboard/referee/edit','uses'=>'UserController@getRefereeData']);
 
 });
+
+
+Route::get('challenge/sumo/{id}',['as'=>'sumo','uses'=>'CombatRoundController@sumo']);
+Route::post('challenge/sumo/pruebas',['as'=>'pruebassssss','uses'=>'CombatRoundController@pruebas']);
+Route::get('challenge/sumo/{id}/envio',['as'=>'challenge/sumo/envio','uses'=>'CombatRoundController@evaluation']);
+Route::get('challenge/sumo/{id}/evalua',['as'=>'challenge/sumo/evalua','uses'=>'CombatRoundController@firm']);
+
+
+Route::get('challenge/futbol/{id}',['as'=>'sumo','uses'=>'CombatRoundController@futbol']);
+Route::get('challenge/futbol/{id}/evalua',['as'=>'challenge/sumo/evalua','uses'=>'CombatRoundController@futbolFirm']);
+
+Route::get('challenge/blockrise/{id}',['as'=>'block','uses'=>'CombatRoundController@block']);
+Route::get('challenge/blockrise/{id}/evalua',['as'=>'block','uses'=>'CombatRoundController@blockFirm']);
+Route::get('challenge/blockrise/{id}/getinfo',['as'=>'getinfo','uses'=>'CombatRoundController@getInfoBlock']);
+
+Route::get('challenge/obstaculos/{id}',['as'=>'block','uses'=>'CombatRoundController@obstaculos']);
+Route::get('challenge/obstaculos/{id}/evalua',['as'=>'obstaculos','uses'=>'CombatRoundController@obstFirm']);
+Route::get('challenge/obstaculos/{id}/combat',['as'=>'combatObstaculos','uses'=>'CombatRoundController@getInfoCombatObsta']);
+
+Route::get('challenge/taekwondo/{id}',['as' => 'taekwondo','uses' => 'CombatRoundController@taekwondo']);
+Route::get('challenge/taekwondo/{id}/evalua',['as' => 'taekwondo','uses' => 'CombatRoundController@taekFirm']);
+
+Route::get('profile',['as'=>'profile','uses'=>'UserController@dash']);
+
+Route::get('profile/referee',['as'=>'profile/referee','uses'=>'UserController@referee']);
+
+Route::get('profile/referee/challenge',['as'=>'profile/referee/challenge','uses'=>'UserController@getRefStage']);
 
 /*
  * 'RoundController@modification'
  * */
 
 //Route::get('dashboard/team/{$id}',['as' => 'dashboard/team','uses' =>'TeamController@index']);
+
+
+Route::get('mail',['as'=>'mail','uses'=>'UserController@mail']);
+
+Route::get('contact',['as'=>'contact','uses'=>'UserController@contact']);
+Route::get('preview/{id}',['as'=>'preview','uses'=> 'UserController@preview']);
+Route::get('preview/gafete/{id}',['as'=>'previewGaf','uses'=> 'UserController@previewGaf']);
+
 
 
 
@@ -104,5 +145,14 @@ Route::post('institutions',['as'=>'institutions','uses'=>function(Request $reque
     dd($request->all());
 }]);
 */
+
+
+Route::get('challenge/reto',['as'=>'challenge/reto','uses'=>'CombatRoundController@getInfoSorpresa']);
+
+Route::get('challenge/reto/combat/{id}',['as' => 'challenge/reto/combat','uses'=>'CombatRoundController@combatSorpresa']);
+Route::get('challenge/reto/combat/{id}/firm',['as' => 'challenge/reto/combat/firm','uses'=>'CombatRoundController@getFrim']);
+
+
+Route::get('ruta/prueba/{id}',['as'=>'prueba','uses'=> 'EndController@FindCombat']);
 
 

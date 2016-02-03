@@ -45,7 +45,13 @@
                                         <table class="table table-condensed table-hover">
                                             <thead>
                                             <tr>
-                                                <th colspan="3" style="text-align: center;" id="title_stage">Escenario </th></tr>
+                                                <th colspan="2" style="text-align: center;" id="title_group">
+
+                                                </th>
+                                                <th colspan="3" style="text-align: center;" id="title_stage">
+                                                    Escenario
+                                                </th>
+                                            </tr>
                                             <tr>
                                                 <th>Equipo 1</th>
                                                 <th>Equipo 2</th>
@@ -88,9 +94,20 @@
                 </div>
                 <div id="errores" class="alert alert-danger none">
                 </div>
+
+                <div id="sucess_class" class="alert alert-success none">
+                    Escenario Respaldo esta activo.
+                </div>
                 <br><br>
-                <input type="text" id="time_des" class="form-control" placeholder='Minutos'>
-                <input type="hidden" id="combat_id">
+                <div class="form-group" id="tr_time_des">
+                    {!! Form::label('minutos','Minutos') !!}:
+                    <input type="text" id="time_des" class="form-control" placeholder='Minutos'>
+                    <input type="hidden" id="combat_id">
+                </div>
+                <div class="form-group">
+                    {!! Form::label('respaldo','Activar Respaldo') !!}:
+                    {!!   Form::checkbox('Activar_respaldo', 1, false,['id'=> 'check_id']) !!}
+                </div>
                 <br>
                 <div class="modal-footer ">
                     <input  type="submit" class="btn btn-warning btn-lg glyphicon glyphicon-ok-sign" id='btn-submit' style="width: 100%;" value="Generar">
@@ -141,7 +158,8 @@
 
     <script>
         $(document).ready(function(){
-            $('.group').click(function(){
+            $('.group').unbind().bind('click',function(){
+                $name_gro=$(this).text();
                 var pathname = window.location.pathname;
                 var str = pathname.split("/");
                 var temp = new Array();
@@ -155,8 +173,8 @@
                     success:function(data){
                      //console.log(data);
                         $('#title_stage').html(data.name);
+                        $('#title_group').html($name_gro);
                         var html="";
-
                         $.each(data.data_info,function(i,el)
                         {
                             html +="<tr>" +
@@ -177,15 +195,13 @@
                         alert('Upsss los sentimos ocurrio un problema');
                     }
                 });
-
             });
-
-
         });
 
         function move(){
-
-            $('#save_id').click(function(){
+            $('#errores').addClass('none');
+            $('#sucess_class').addClass('none');
+            $('#save_id').unbind().bind('click',function(){
                 var pathname = window.location.pathname;
                 var str = pathname.split("/");
                 var temp = new Array();
@@ -198,7 +214,7 @@
                     type:'GET',
                     success:function(data){
                         if(data.success){
-                            alert('Todo salio perfecto !!');
+                            alert('Accion realizada !!');
                             location.reload(true);
 
                         }
@@ -209,10 +225,15 @@
                     }
                 });
             });
-
-
-
-            $('#btn-submit').click(function(){
+            $('#check_id').unbind().bind('change',function(){
+                var chechk = $("#check_id").is(':checked');
+                if(chechk){
+                    $('#tr_time_des').addClass('none');
+                }else{
+                    $('#tr_time_des').removeClass('none');
+                }
+            });
+            $('#btn-submit').unbind().bind('click',function(){
                 var pathname = window.location.pathname;
                 var str = pathname.split("/");
                 var temp = new Array();
@@ -220,21 +241,54 @@
                 var time = $('#time_des').val();
                 var combat_id = $('#combat_id').val();
 
+                var chechk = $("#check_id").is(':checked');
+
+                if(chechk) {
+                    var data_json= {
+                        combat_id: combat_id,
+                        flag: true,
+                        challenge_id :temp[str.length - 1]
+                    };
+                    var flag=true;
+                } else {
+                    var data_json= {
+                        flag: false,
+                        time: time,
+                        combat_id: combat_id,
+                        challenge_id :temp[str.length - 1]
+                    };
+                    var flag=false;
+                }
+
+
                 $.ajax({
                     url:temp[str.length - 1]+'/time',
-                    data:{
-                        time: time,
-                        combat_id: combat_id
-                    },
+                    data:data_json,
                     type:'GET',
                     success:function(data){
-                        $.each(data,function(i,lo){
-                            $('#ver_1_'+lo.id).html(lo.schedule_start);
-                            $('#ver_2_'+lo.id).html(lo.schedule_end);
-                            $('#text_val_1_'+lo.id).val(lo.schedule_start);
-                            $('#text_val_2_'+lo.id).val(lo.schedule_end);
-                        });
-                        $('#hiden_div').removeClass('none');
+
+                        if(data.success){
+                            $('#errores').addClass('none');
+                            $('#sucess_class').removeClass('none');
+                            if(!flag){
+                                $('#sucess_class').addClass('none');
+                                $('#hiden_div').removeClass('none');
+                                $.each(data.datos,function(i,lo){
+                                    $('#ver_1_'+lo.id).html(lo.schedule_start);
+                                    $('#ver_2_'+lo.id).html(lo.schedule_end);
+                                    $('#text_val_1_'+lo.id).val(lo.schedule_start);
+                                    $('#text_val_2_'+lo.id).val(lo.schedule_end);
+                                });
+                            }else{
+                                location.reload(true);
+                            }
+
+                        }else{
+                            $('#errores').removeClass('none');
+                            $('#errores').html(data.datos);
+
+
+                        }
                     },
                     error:function(data){
                         alert('Upsss los sentimos ocurrio un problema');
@@ -243,9 +297,6 @@
 
                 return false;
             });
-
-
-
             $('.move').unbind().bind('click',function(){
                 var pathname = window.location.pathname;
                 var str = pathname.split("/");

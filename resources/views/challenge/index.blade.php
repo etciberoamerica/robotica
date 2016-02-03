@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <br><br><br><br>
+                <br><br><br><br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                     <button id="btn" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
                         Nuevo reto
@@ -130,7 +130,6 @@
     <script>
         $(document).ready(function(){
             $('#btn').click(function(){
-                console.log('s');
                 $('#identificador').val('');
                 $('#nombre_id').val('');
                 $('#estatus_id > option[value=" "]').attr('selected', 'selected');

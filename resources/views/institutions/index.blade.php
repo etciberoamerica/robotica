@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <br><br><br>
+                <br><br><br><br><br><br>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                     <button id="btn-e" class="btn btn-primary btn-xs" data-id="" data-title="Edit" data-toggle="modal" data-target="#edit" >
                         Nueva institucion

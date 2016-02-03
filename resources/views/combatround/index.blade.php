@@ -8,7 +8,7 @@
             <div class="row">
                 @if($data[0]['data_team'])
                     @foreach($data as $d)
-                        <div class="col-md-6">
+                        {{--<div class="col-md-6">--}}
                             <div class="panel panel-success">
                                 <div class="panel-leftheading">
                                     <h3 class="panel-lefttitle">{!! $d['name'] !!}</h3>
@@ -19,12 +19,16 @@
                                         <tr class="p">
                                             <td>
                                                 {!! $t['r_t_name'] !!}
+                                                -
+                                                {!! substr($t['institu_i1'],0,25) !!}
                                             </td>
                                             <td>
                                                 Vs
                                             </td>
                                             <td>
                                                 {!! $t['r_t2_name'] !!}
+                                                -
+                                                {!! substr($t['institu_i2'],0,25)!!}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -32,7 +36,7 @@
                                 <div class="clearfix">
                                 </div>
                             </div>
-                        </div>
+                      {{--  </div>--}}
                     @endforeach
                 @else
                     <div class="alert-message alert-message-danger">

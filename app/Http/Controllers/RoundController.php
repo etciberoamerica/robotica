@@ -47,7 +47,7 @@ class RoundController extends Controller
 
 
 
-    public function index($id,array $data=['y'=>0,'time_start'=>0,'time_end'=>0]){
+    public static function index($id,array $data=['y'=>0,'time_start'=>0,'time_end'=>0]){
         $challenge= Challenge::find($id);
         $challenge_name=$challenge->name;
         $cha = Challenge::listGroup();
@@ -90,15 +90,17 @@ class RoundController extends Controller
                     ]);
                 }
                 if($i == $numStage - 1){
-                    $this->index($id,$data=['y'=>$i+1,'time_start'=>$hora_start,'time_end'=>$hora_end]);
+                    RoundController::index($id,$data=['y'=>$i+1,'time_start'=>$hora_start,'time_end'=>$hora_end]);
                     break;
                 }
                 $p++;
             }
 //        }
-        $pag = $this->pagination($id);
-        $flag = true;
-        return view('round.index',compact('flag','pag','cha','challenge_name','id'));
+        if(!ENV('DEVELOP')){
+            $pag = RoundController::pagination($id);
+            $flag = true;
+            return view('round.index',compact('flag','pag','cha','challenge_name','id'));
+        }
     }
 
 
@@ -106,7 +108,7 @@ class RoundController extends Controller
 
 
 
-    public function pagination($id){
+    public static function pagination($id){
         $url_actual = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         $url_actual = explode('?',$url_actual);
         $pag = Round::
